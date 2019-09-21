@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../Header/Header"
+import Settings from "../Settings/Settings.wrap.js";
 
-function App() {
-    return (
-        <>
-            <Header />
-        </>
-    );
-}
+const App = () => (
+    <>
+        <Header />
+        <Settings />
+    </>
+);
 
 export default App;

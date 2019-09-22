@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 class Name extends Component {
     constructor(props) {
         super(props);
         this.state = {  };
     }
+
+    
 
     render() {
         let { game, players } = this.props;
@@ -16,14 +20,18 @@ class Name extends Component {
                     <div className="jumbotron d-flex justify-content-around p-2">
                         <div className="col-sm-5 p-2 bg-success">
                             <h5 className="pt-2 text-light">{ players[0].name }</h5>
-                            <button className="btn btn-light btn-sm">+</button>
+                            <button className="btn btn-light btn-sm text-dark">
+                                <FontAwesomeIcon icon={ faPlus } />
+                            </button>
                         </div>
-                        <div className="col-sm-2 p-2 bg-dark">
+                        <div className="col-sm-2 p-2 bg-dark" style={{ maxWidth: "80px" }}>
                             <h5 className="pt-2 text-light">vs.</h5>
                         </div>
                         <div className="col-sm-5 p-2 bg-success">
                             <h5 className="pt-2 text-light">{ players[1].name }</h5>
-                            <button className="btn btn-light btn-sm">+</button>
+                            <button className="btn btn-light btn-sm text-dark">
+                                <FontAwesomeIcon icon={ faPlus } />
+                            </button>
                         </div>
                     </div>
                 </div>

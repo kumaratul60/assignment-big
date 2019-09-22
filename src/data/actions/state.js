@@ -1,6 +1,6 @@
-export const newTournament = values => {    
+export const newPlayer = values => {    
     return {
-        type: "newTournament",
+        type: "newPlayer",
         ...values
     };
 };

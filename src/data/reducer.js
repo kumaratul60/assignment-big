@@ -1,4 +1,4 @@
-const newTournament = (state, { name }) => {
+const newPlayer = (state, { name }) => {
     return {
         ...state,
         players: [
@@ -12,40 +12,42 @@ const newTournament = (state, { name }) => {
 };
 
 const editPlayer = (state, { newName, index }) => {
+    let players = [...state.players]; 
+    
+    players.splice(index, 1, {
+        name: newName,
+        editMode: false,
+    });
+    
     return {
         ...state,
-        players: [
-            state.players[index] = {
-                ...state.players[index],
-                name: newName,
-                editMode: false,
-            }
-        ],
+        players: players,
     };
 };
 
 const deletePlayer = (state, { index }) => {
+    let players = [...state.players];
+    players.splice(index, 1);
+
     return {
         ...state,
-        players: state.players.splice(index, 1),
+        players: players,
     };
 };
 
 const editMode = (state, { index }) => {
+    let players = [...state.players];
+    players[index].editMode = true;
+
     return {
         ...state,
-        players: [
-            state.players[index] = {
-                ...state.players[index],
-                editMode: true,
-            }
-        ],
+        players: players,
     };
 };
 
 const reducer = (state, action) => {    
     switch (action.type) {
-        case "newTournament": return newTournament(state, action);
+        case "newPlayer": return newPlayer(state, action);
         case "editPlayer": return editPlayer(state, action);
         case "deletePlayer": return deletePlayer(state, action);
         case "editMode": return editMode(state, action);

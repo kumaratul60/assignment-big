@@ -35,5 +35,19 @@ export const newTournament = values => {
     return {
         type: "start",
         ...values,
-    }
-}
+    };
+};
+
+export const viewSettings = values => {
+    return {
+        type: "settings",
+        ...values,
+    };
+};
+
+export const viewTournament = values => {
+    return {
+        type: "tournament",
+        ...values,
+    };
+};

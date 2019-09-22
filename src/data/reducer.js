@@ -9,6 +9,7 @@ const newPlayer = (state, { name }) => {
             {
                 "name": name,
                 "editMode": false,
+                "score": 0,
             }
         ],
     };
@@ -49,12 +50,10 @@ const editMode = (state, { index }) => {
 };
 
 const newTournament = state => {
-    // console.log(split(shuffle(state.players)));
-    // let teams = split(shuffle(state.players));
-    // console.log(teams);
     let newPlayers = [...state.players];
+    
     return {
-        ...state, 
+        ...state,
         tournaments: [
             ...split(shuffle(newPlayers))
         ],
@@ -62,7 +61,23 @@ const newTournament = state => {
         players: state.players,
         settingsView: false,
         tournamentView: true,
-    }
+    };
+};
+
+const viewSettings = state => {
+    return {
+        ...state,
+        settingsView: true,
+        tournamentView: false,
+    };
+};
+
+const viewTournament = state => {
+    return {
+        ...state,
+        settingsView: false,
+        tournamentView: true,
+    };
 };
 
 const reducer = (state, action) => {    
@@ -72,6 +87,8 @@ const reducer = (state, action) => {
         case "deletePlayer": return deletePlayer(state, action);
         case "editMode": return editMode(state, action);
         case "start": return newTournament(state, action);
+        case "settings": return viewSettings(state, action);
+        case "tournament": return viewTournament(state, action);
         default: return state;
     }
 }

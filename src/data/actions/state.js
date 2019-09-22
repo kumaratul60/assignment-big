@@ -30,3 +30,10 @@ export const editMode = (values, index) => {
         index
     };
 };
+
+export const newTournament = values => {
+    return {
+        type: "start",
+        ...values,
+    }
+}

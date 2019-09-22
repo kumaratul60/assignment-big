@@ -1,3 +1,6 @@
+import { shuffle } from "./functions/shuffle";
+import { split } from "./functions/split";
+
 const newPlayer = (state, { name }) => {
     return {
         ...state,
@@ -45,12 +48,28 @@ const editMode = (state, { index }) => {
     };
 };
 
+const newTournament = state => {
+    // console.log(split(shuffle(state.players)));
+    // let teams = split(shuffle(state.players));
+    // console.log(teams);
+    let newPlayers = [...state.players];
+    return {
+        ...state, 
+        tournaments: [
+            ...split(shuffle(newPlayers))
+        ],
+        winningScore: state.winningScore,
+        players: state.players,
+    }
+};
+
 const reducer = (state, action) => {    
     switch (action.type) {
         case "newPlayer": return newPlayer(state, action);
         case "editPlayer": return editPlayer(state, action);
         case "deletePlayer": return deletePlayer(state, action);
         case "editMode": return editMode(state, action);
+        case "start": return newTournament(state, action);
         default: return state;
     }
 }

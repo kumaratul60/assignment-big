@@ -42,8 +42,8 @@ class Player extends Component {
             !players[index].editMode ? (
                 <li className="list-group-item">
                     <span className="d-inline-block">{ players[index].name }</span>
-                    <span onClick={ () => this.handleDelete(index) } className="btn btn-danger float-right mx-2">Delete</span>
-                    <span onClick={ () => this.handleEditMode(index) } className="btn btn-warning float-right mx-2">Edit</span>
+                    <span onClick={ () => this.handleDelete(index) } className="btn btn-danger btn-sm float-right mx-2">Delete</span>
+                    <span onClick={ () => this.handleEditMode(index) } className="btn btn-warning btn-sm float-right mx-2">Edit</span>
                 </li>
             ) : 
             (
@@ -53,7 +53,7 @@ class Player extends Component {
                             <label htmlFor="editPlayer" className="help-block">Edit Player Name</label>
                             <input type="text" id="editPlayer" className="form-control" onChange={ this.handleChange } value={ newName } />
                             </div>
-                        <button className="btn btn-warning float-right mx-2">Done</button>
+                        <button className="btn btn-success btn-sm float-right mx-2">Done</button>
                     </form>
                 </li>
             )

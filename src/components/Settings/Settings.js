@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import Player from "./../Player/Player.wrap"
 
 class Settings extends Component {
@@ -8,44 +7,61 @@ class Settings extends Component {
         super(props);
         this.state = {
             name: "",
+            winningScore: "",
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleSubmitName = this.handleSubmitName.bind(this);
+        this.handleChangeScore = this.handleChangeScore.bind(this);
+        this.handleSubmitTournament = this.handleSubmitTournament.bind(this);
     }
 
-    handleChange(e) {
+    handleChangeName(e) {
         this.setState({ name: e.currentTarget.value });
     };
 
-    handleSubmit(e) {
+    handleSubmitName(e) {
         e.preventDefault();
-        this.props.handle(this.state);
+        this.props.handleName(this.state);
         this.setState({ name: "" });
     };
 
-    // handleEdit(e) {
-    //     e.preventDefault();
-    //     this.props.handleEdit(this.state);
-    // }
+    handleChangeScore(e) {
+        this.setState({ winningScore: e.currentTarget.value })
+    }
+
+    handleSubmitTournament(e) {
+        e.preventDefault();
+        this.props.handleTournament(this.state);
+    }
     
     render() {
-        let { name } = this.state;
+        let { name, winningScore } = this.state;
         let { players } = this.props;
         return (
             <>
-                <form onSubmit={ this.handleSubmit }>
+                <form onSubmit={ this.handleSubmitName }>
                     <label htmlFor="names" className="help-block">Add Player</label>
-                    <input onChange={ this.handleChange } id="names" className="form-control" value={ name } />
+                    <input onChange={ this.handleChangeName } id="names" className="form-control" value={ name } />
                     <button type="submit" className="btn btn-primary mt-3">Add</button>
                 </form>
 
-                <ul className="list-group mt-3">
+                <ul className="list-group mt-3 col-sm-6 float-left">
                     {
                         players.map((player, i) => (
                             <Player key={ i } index={ i } name={ player.name } />
                         ))
                     }
                 </ul>
+
+                <form onSubmit={ this.handleSubmitTournament } className="form col-sm-6 mt-3 p-0 float-right">
+                    <select onChange={ this.handleChangeScore } className="custom-select" value={ winningScore }>
+                        <option>Select winning score</option>
+                        <option defaultValue="11">11</option>
+                        <option defaultValue="21">21</option>
+                    </select>
+
+                    <button className="btn btn-success mt-3" >Create Tournament</button>
+                </form>
             </>
         );
     }

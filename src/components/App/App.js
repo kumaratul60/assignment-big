@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Header/Header"
-import Settings from "../Settings/Settings.wrap.js";
+import Settings from "./../Settings/Settings.wrap";
 
 const App = () => (
     <>

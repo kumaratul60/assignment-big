@@ -60,6 +60,8 @@ const newTournament = state => {
         ],
         winningScore: state.winningScore,
         players: state.players,
+        settingsView: false,
+        tournamentView: true,
     }
 };
 

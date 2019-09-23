@@ -1,10 +1,10 @@
-export const split = (array) => {
+export const split = players => {
     let result = [];
-    let teams = Math.floor(array.length / (array.length / 2));
+    let teams = Math.floor(players.length / (players.length / 2));
 
-    while (array.length) {
-        result.push(array.splice(0, teams));
+    while (players.length) {
+        result.push(players.splice(0, teams));
     }
 
     return result;
-}
+};

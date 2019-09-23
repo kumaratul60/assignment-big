@@ -1,17 +1,16 @@
-export const shuffle = (array) => {
+export const shuffle = players => {
 
-    let currentIndex = array.length;
+    let currentIndex = players.length;
     let temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = players[currentIndex];
+        players[currentIndex] = players[randomIndex];
+        players[randomIndex] = temporaryValue;
     }
 
-    return array;
-
+    return players;
 };

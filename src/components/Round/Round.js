@@ -1,29 +1,16 @@
-import React, { Component } from "react";
-import Game from "./../Game/Game";
+import React from "react";
+import Game from "./../Game/Game.wrap";
 
-class Round extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    // }
-
-    render() {
-        let { tournaments } = this.props;
-        
-        return (
-            <>
-                {
-                    tournaments.map((game, i) => (
-                        <Game 
-                            key={ i }
-                            game={ `Game ${i + 1}` }
-                            players={ game }
-                        />
-                    ))
-                }
-            </>
-        );
-    };
+const Round = ({ tournaments }) => {
+    return (
+        <>
+            {
+                tournaments.map((game, i) => (
+                    <Game key={ i } game={ `Game ${i + 1}` } players={ game } />
+                ))
+            }
+        </>
+    );
 };
 
 export default Round;

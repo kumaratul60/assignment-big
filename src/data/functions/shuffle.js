@@ -1,3 +1,6 @@
+// the purpose of this function to shuffle an array
+// the application of this functon is to take an array of player objects and shuffle them into a random order
+
 export const shuffle = players => {
 
     let currentIndex = players.length;

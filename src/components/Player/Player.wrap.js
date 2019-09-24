@@ -9,9 +9,9 @@ const mapStateToProps = state => ({
 }); 
 
 const mapDispatchToProps = dispatch => ({
-    handleEdit: (values, index) => dispatch(editPlayer(values, index)),
-    handleDelete: (values, index) => dispatch(deletePlayer(values, index)),
-    handleEditMode: (values, index) => dispatch(editMode(values, index)), 
+    edit: (values, index) => dispatch(editPlayer(values, index)),
+    delete: (values, index) => dispatch(deletePlayer(values, index)),
+    editMode: (values, index) => dispatch(editMode(values, index)), 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);

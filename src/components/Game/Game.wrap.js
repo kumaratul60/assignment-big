@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
 import Game from "./Game";
 
-const mapStateToProps = state => ({
-    tournaments: state.tournaments,
+// destructure tournaments state property and map into wrapped component as a prop 
+const mapStateToProps = ({ tournaments }) => ({
+    // there's no need to accept `state` as an argument and spell out `tournaments: state.tournaments`
+    // because the key and value pair are identical, so we just write `tournaments` 
+    tournaments,
 });
 
-const mapDispatchToProps = dispatch => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Game)
+export default connect(mapStateToProps)(Game)

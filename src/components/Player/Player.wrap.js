@@ -1,8 +1,6 @@
 import { connect } from "react-redux";
 import Player from "./Player";
-import { editPlayer } from "../../data/actions/state";
-import { deletePlayer } from "../../data/actions/state"
-import { editMode } from "../../data/actions/state"
+import { editPlayer, deletePlayer, editMode } from "./../../data/actions/state";
 
 const mapStateToProps = state => ({
     players: state.players,

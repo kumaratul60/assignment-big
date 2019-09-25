@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import Settings from "./Settings";
-import { newPlayer } from "../../data/actions/state";
-import { newTournament } from "../../data/actions/state";
+import { newPlayer, newTournament } from "./../../data/actions/state";
 
 const mapStateToProps = state => ({
     players: state.players,

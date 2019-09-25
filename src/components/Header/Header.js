@@ -5,6 +5,7 @@ class Header extends Component {
         super(props);
         this.handleSettings = this.handleSettings.bind(this);
         this.handleTournament = this.handleTournament.bind(this);
+        this.handleResults = this.handleResults.bind(this);
     };
 
     handleSettings() {
@@ -15,6 +16,10 @@ class Header extends Component {
         this.props.handleTournament(this.state);
     };
 
+    handleResults() {
+        this.props.handleResults(this.state);
+    };
+
     render() {
         return (
             <>
@@ -23,7 +28,7 @@ class Header extends Component {
                     <ul className="nav justify-content-center">
                         <li onClick={ this.handleSettings } className="nav-item m-2">Settings</li>
                         <li onClick={ this.handleTournament } className="nav-item m-2">Tournament</li>
-                        <li className="nav-item m-2">Results</li>
+                        <li onClick={ this.handleResults } className="nav-item m-2">Results</li>
                     </ul>
                 </div>
             </>

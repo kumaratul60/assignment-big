@@ -1,6 +1,7 @@
 import { shuffle } from "./functions/shuffle";
 import { split } from "./functions/split";
 import { findGame, findGameIndex, findPlayerIndex } from "./functions/score";
+import { winners } from "./functions/winners";
 
 const newPlayer = (state, { name }) => {
     return {
@@ -52,14 +53,12 @@ const editMode = (state, { index }) => {
     };
 };
 
-const newTournament = (state, { winningScore }) => {
-    console.log(winningScore);
-    
+const newTournament = (state, { winningScore }) => {    
     let newPlayers = [...state.players];
     
     return {
         ...state,
-        tournaments: [
+        tournament: [
             ...split(shuffle(newPlayers))
         ],
         winningScore: +winningScore,
@@ -82,37 +81,70 @@ const viewTournament = state => {
         ...state,
         settingsView: false,
         tournamentView: true,
+        resultsView: false,
+    };
+};
+
+const viewResults = state => {
+    return {
+        ...state,
+        settingsView: false,
+        tournamentView: false,
+        resultsView: true,
     };
 };
 
 const score = (state, { newScore, id }) => {
-    console.log(state, +newScore, id);
-    let tournament = state.tournaments;
-    console.log(tournament);
-
+    let tournament = state.tournament;
     let gameArray = findGame(tournament, id);
     let gameIndex = findGameIndex(tournament, id);
     let playerIndex = findPlayerIndex(gameArray, id);
 
-    let newTournament = [...tournament];
-    newTournament[gameIndex][playerIndex].score = +newScore;
+    tournament[gameIndex][playerIndex].score = +newScore;
 
     return {
-        ...state, 
-        tournaments: [...newTournament]
-    }
-}
+        ...state,
+        tournament: [...tournament]
+    };
+};
+
+const newRound = state => {
+    let tournament = state.tournament;
+    let winningScore = state.winningScore;
+    let newPlayers = winners(tournament, winningScore);
+
+    newPlayers.map(player => player.score = 0);
+
+    return {
+        ...state,
+        tournament: [
+            ...split(shuffle(newPlayers))
+        ],
+    };
+};
+
+const endTournament = state => {
+    return {
+        ...state,
+        settingsView: false,
+        tournamentView: false,
+        resultsView: true,
+    };
+};
 
 const reducer = (state, action) => {    
     switch (action.type) {
-        case "newPlayer": return newPlayer(state, action);
-        case "editPlayer": return editPlayer(state, action);
-        case "deletePlayer": return deletePlayer(state, action);
-        case "editMode": return editMode(state, action);
-        case "start": return newTournament(state, action);
-        case "settings": return viewSettings(state, action);
-        case "tournament": return viewTournament(state, action);
-        case "score": return score(state, action);
+        case "NEW_PLAYER": return newPlayer(state, action);
+        case "EDIT_PLAYER": return editPlayer(state, action);
+        case "DELETE_PLAYER": return deletePlayer(state, action);
+        case "EDIT_MODE": return editMode(state, action);
+        case "START": return newTournament(state, action);
+        case "SETTINGS": return viewSettings(state, action);
+        case "TOURNAMENT": return viewTournament(state, action);
+        case "RESULTS": return viewResults(state, action);
+        case "SCORE": return score(state, action);
+        case "NEW_ROUND": return newRound(state, action);
+        case "END_TOURNAMENT": return endTournament(state, action);
         default: return state;
     }
 }

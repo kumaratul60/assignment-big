@@ -51,3 +51,11 @@ export const viewTournament = values => {
         ...values,
     };
 };
+
+export const addScore = (values, id) => {
+    return {
+        type: "score",
+        ...values,
+        id,
+    };
+};

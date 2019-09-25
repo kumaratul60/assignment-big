@@ -6,8 +6,9 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: "",
             name: "",
-            winningScore: "",
+            winningScore: 11,
             errorName: false,
             errorTournament: false,
         };
@@ -35,11 +36,11 @@ class Settings extends Component {
     handleSubmitName(e) {
         e.preventDefault();
         this.setState({ name: "" });
-        this.props.handleName(this.state)
+        this.props.handleName(this.state);
     };
 
     handleChangeScore(e) {
-        this.setState({ winningScore: e.currentTarget.value })
+        this.setState({ winningScore: e.currentTarget.value });
     };
     
     handleTournamentError(e) {
@@ -86,11 +87,11 @@ class Settings extends Component {
                 <form onSubmit={ isPowerOf2(players.length) ? this.handleSubmitTournament : this.handleTournamentError } className="form col-sm-6 mt-3 p-0 float-right">
                     <label className="help-block">Select winning score</label>
                     <select onChange={ this.handleChangeScore } className="custom-select" value={ winningScore }>
-                        <option defaultValue="11">11</option>
-                        <option defaultValue="21">21</option>
+                        <option value="11">11</option>
+                        <option value="21">21</option>
                     </select>
 
-                    <button className="btn btn-success mt-3">Create Tournament</button>
+                    <input type="submit" className="btn btn-success mt-3" value="Create Tournament" />
                     { !errorTournament ? null : <p className="alert alert-danger mt-3">The number of players must be n<sup>2</sup> (4, 8, 16, 32 etc)</p> }
                 
                 </form>

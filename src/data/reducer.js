@@ -105,9 +105,7 @@ const score = (state, { newScore, id }) => {
 };
 
 const newRound = state => {
-    let tournament = state.tournament;
-    let winningScore = state.winningScore;
-    let newPlayers = winners(tournament, winningScore);
+    let newPlayers = winners(state.tournament, state.winningScore);
 
     newPlayers.map(player => player.score = "");
     newPlayers.map(player => player.played = false);
@@ -119,14 +117,22 @@ const newRound = state => {
         ],
         history: [
             ...state.history,
-            tournament
+            state.tournament
         ]
     };
 };
 
 const endTournament = state => {
+    
     return {
         ...state,
+        tournament: [
+            ...winners(state.tournament, state.winningScore)
+        ],
+        history: [
+            ...state.history,
+            state.tournament
+        ],
         settingsView: false,
         tournamentView: false,
         resultsView: true,

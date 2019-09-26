@@ -1,8 +1,8 @@
 let tournament = [
-    [ { name: "Brian", score: 15 }, { name: "Isabella", score: 21 } ],
-    [ { name: "Lucas", score: 18 }, { name: "Simon", score: 21 } ],
-    [ { name: "Jonathan", score: 21 }, { name: "Louise", score: 18 } ],
-    [ { name: "Jane", score: 12 }, { name: "Martin", score: 21 } ],
+    [ { name: "Brian", score: 11 }, { name: "Isabella", score: 9 } ],
+    [ { name: "Lucas", score: 15 }, { name: "Simon", score: 13 } ],
+    [ { name: "Jonathan", score: 13 }, { name: "Louise", score: 11 } ],
+    [ { name: "Jane", score: 8 }, { name: "Martin", score: 11 } ],
 ];
 
 let winningScore = 21;
@@ -11,9 +11,7 @@ let winningScore = 21;
 // the next step is to shuffle and split the flat array to create a new round of games 
 
 const winners = (tournament, winningScore) => {
-    let result = [];
-    tournament.map(game => game.filter(player => player.score === winningScore ? result.push(player) : null));
-    return result;
+    return tournament.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
 };
 
 console.log("tournament", tournament);

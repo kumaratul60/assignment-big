@@ -4,6 +4,7 @@ import { addScore } from "./../../data/actions/state";
 
 const mapStateToProps = state => ({
     winningScore: state.winningScore,
+    tournament: state.tournament,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -4,8 +4,9 @@ import Game from "./../Game/Game.wrap";
 class Round extends Component {
     constructor(props) {
         super(props);
+        let { tournament } = this.props;
         this.state = {
-            end: this.props.tournament.length === 1,
+            end: tournament.length === 1,
         };
         this.handleNewRound = this.handleNewRound.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
@@ -19,7 +20,7 @@ class Round extends Component {
     handleFinish(e) {
         e.preventDefault();
         this.props.endTournament();
-    }
+    };
 
     render() {
         let { tournament } = this.props;
@@ -27,17 +28,27 @@ class Round extends Component {
 
         return (
             <>
+                { console.log(tournament[0][0].played) }
                 {
                     tournament.map((game, i) => (
                         <Game key={ i } game={ `Game ${i + 1}` } players={ game } />
                     ))
                 }
 
-                <button
-                    onClick={ end ? this.handleFinish : this.handleNewRound }
-                    className="btn btn-primary">
-                    { end ? "Finish" : "New Round" }
-                </button>
+                {
+                    tournament.length === 1 && tournament[0][0].played && tournament[0][1].played ?
+                    <button
+                        onClick={ this.handleFinish }
+                        className="btn btn-primary">
+                        Finish
+                    </button> : 
+                    tournament.length === 1 && (!tournament[0][0].played || !tournament[0][1].played) ? null :
+                    <button
+                        onClick={ this.handleNewRound }
+                        className="btn btn-primary">
+                        Next Round
+                    </button> 
+                }
             </>
         );
     }

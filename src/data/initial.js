@@ -3,6 +3,7 @@ const initial = {
     players: [],
     editMode: false,
     tournament: [],
+    history: [],
     winningScore: null,
     settingsView: true,
     tournamentView: false,

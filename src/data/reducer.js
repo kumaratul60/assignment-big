@@ -1,6 +1,6 @@
 import { shuffle } from "./functions/shuffle";
 import { split } from "./functions/split";
-import { findGame, findGameIndex, findPlayerIndex } from "./functions/score";
+import { newTournamentArray } from "./functions/score";
 import { winners } from "./functions/winners";
 
 const newPlayer = (state, { name }) => {
@@ -13,7 +13,8 @@ const newPlayer = (state, { name }) => {
                 "id": state.counter + 1,
                 "name": name,
                 "editMode": false,
-                "score": 0,
+                "score": "",
+                "played": false,
             }
         ],
     };
@@ -95,12 +96,7 @@ const viewResults = state => {
 };
 
 const score = (state, { newScore, id }) => {
-    let tournament = state.tournament;
-    let gameArray = findGame(tournament, id);
-    let gameIndex = findGameIndex(tournament, id);
-    let playerIndex = findPlayerIndex(gameArray, id);
-
-    tournament[gameIndex][playerIndex].score = +newScore;
+    let tournament = newTournamentArray(state.tournament, id, newScore);
 
     return {
         ...state,
@@ -113,13 +109,18 @@ const newRound = state => {
     let winningScore = state.winningScore;
     let newPlayers = winners(tournament, winningScore);
 
-    newPlayers.map(player => player.score = 0);
+    newPlayers.map(player => player.score = "");
+    newPlayers.map(player => player.played = false);
 
     return {
         ...state,
         tournament: [
             ...split(shuffle(newPlayers))
         ],
+        history: [
+            ...state.history,
+            tournament
+        ]
     };
 };
 

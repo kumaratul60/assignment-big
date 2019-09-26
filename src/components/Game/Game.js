@@ -10,11 +10,11 @@ const Game = ({ game, players }) => {
             <h4>{ game }</h4>
             <div className="jumbotron d-flex justify-content-around p-2">
             {
-                players.map((player, index) => (
+                players.map(player => (
 
                         <div key={ player.id } className="col-sm-6 p-2 bg-success">
                             <h5 className="pt-2 text-light">{ player.name }</h5>
-                            <Score id={ player.id } score={ player.score } />
+                        <Score id={ player.id } score={ player.score } played={ player.played } />
                         </div>
 
                 ))

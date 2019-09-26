@@ -30,7 +30,9 @@ const editPlayer = (state, { newName, index }) => {
     
     return {
         ...state,
-        players: players,
+        players: [
+            ...players
+        ],
     };
 };
 
@@ -55,12 +57,13 @@ const editMode = (state, { index }) => {
 };
 
 const newTournament = (state, { winningScore }) => {    
-    let newPlayers = [...state.players];
+    let players = [...state.players];
+    let newPlayers = split(shuffle(players));
     
     return {
         ...state,
         tournament: [
-            ...split(shuffle(newPlayers))
+            ...newPlayers
         ],
         winningScore: +winningScore,
         players: state.players,
@@ -100,38 +103,46 @@ const score = (state, { newScore, id }) => {
 
     return {
         ...state,
-        tournament: [...tournament]
+        tournament: [
+            ...tournament
+        ],
     };
 };
 
 const newRound = state => {
-    let newPlayers = winners(state.tournament, state.winningScore);
+    let tournament = state.tournament;
+    let winningScore = state.winningScore;
+    let winningPlayers = winners(tournament, winningScore);
 
-    newPlayers.map(player => player.score = "");
-    newPlayers.map(player => player.played = false);
+    winningPlayers.map(player => player.score = "");
+    winningPlayers.map(player => player.played = false);
+    let newPlayers = split(shuffle(winningPlayers));
 
     return {
         ...state,
         tournament: [
-            ...split(shuffle(newPlayers))
+            ...newPlayers
         ],
         history: [
             ...state.history,
-            state.tournament
-        ]
+            tournament
+        ],
     };
 };
 
 const endTournament = state => {
-    
+    let tournament = state.tournament;
+    let winningScore = state.winningScore;
+    let winningPlayers = winners(tournament, winningScore);
+
     return {
         ...state,
         tournament: [
-            ...winners(state.tournament, state.winningScore)
+            ...winningPlayers,
         ],
         history: [
             ...state.history,
-            state.tournament
+            tournament
         ],
         settingsView: false,
         tournamentView: false,

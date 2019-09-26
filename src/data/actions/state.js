@@ -6,7 +6,6 @@ export const newPlayer = values => {
 };
 
 export const editPlayer = (values, index) => {
-    console.log(index);
     
     return {
         type: "EDIT_PLAYER",

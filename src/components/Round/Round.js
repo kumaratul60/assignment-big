@@ -4,10 +4,6 @@ import Game from "./../Game/Game.wrap";
 class Round extends Component {
     constructor(props) {
         super(props);
-        let { tournament } = this.props;
-        this.state = {
-            end: tournament.length === 1,
-        };
         this.handleNewRound = this.handleNewRound.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
     };
@@ -24,11 +20,9 @@ class Round extends Component {
 
     render() {
         let { tournament } = this.props;
-        let { end } = this.state;
 
         return (
             <>
-                { console.log(tournament[0][0].played) }
                 {
                     tournament.map((game, i) => (
                         <Game key={ i } game={ `Game ${i + 1}` } players={ game } />

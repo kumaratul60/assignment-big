@@ -20,6 +20,8 @@ class Round extends Component {
 
     render() {
         let { tournament } = this.props;
+        console.log(tournament.length);
+        
 
         return (
             <>

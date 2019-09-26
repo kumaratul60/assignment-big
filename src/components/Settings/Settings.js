@@ -78,8 +78,8 @@ class Settings extends Component {
 
                 <ul className="list-group mt-3 col-sm-6 float-left">
                     {
-                        players.map((player, i) => (
-                            <Player key={ i } index={ i } name={ player.name } />
+                        players.map(player => (
+                            <Player key={ player.id } id={ player.id } name={ player.name } editMode={ player.editMode } />
                         ))
                     }
                 </ul>

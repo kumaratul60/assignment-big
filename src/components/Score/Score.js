@@ -18,11 +18,11 @@ class Score extends Component {
 
     handleChange(e) {
         let { winningScore, tournament, id } = this.props;
-        let newScore = e.currentTarget.value;
+        let score = e.currentTarget.value;
 
         this.setState({
-            newScore: +newScore,
-            error: valid(tournament, +newScore, winningScore, id),
+            newScore: score,
+            error: valid(tournament, +score, winningScore, id),
         });
     };
 
@@ -35,7 +35,7 @@ class Score extends Component {
     handleSubmit(e, id) {
         e.preventDefault();
         this.props.handleScore(this.state, id);
-        this.setState({ newScore: "" });
+        // this.setState({ newScore: "" });
     };
 
     render() {

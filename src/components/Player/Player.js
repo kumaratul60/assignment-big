@@ -16,12 +16,14 @@ class Player extends Component {
     };
 
     // the handleEditMode method is called by the onSubmit event handler within the rendered form component when the user clicks the edit button 
-    handleEditMode(index) {
+    handleEditMode(id) {
+        let {name } = this.props; 
         // the editMode prop is mapped from the component wrapper
         // when called it will dispatch the editPlayer action (see`Player.wrap.js`)
-        // this class method is accepting the index prop as an argument and passing it into the prop function as a parameter
+        // this class method is accepting the id prop as an argument and passing it into the prop function as a parameter
         // so the reducer function will know which player it should edit in the players array stored in global state
-        this.props.editMode(this.state, index);
+        this.props.editPlayerMode(this.state, id);
+        this.setState({ newName: name });
     };
 
     // the handleChange method is used to update the mutable state property `newName` when the user is typing 
@@ -41,42 +43,43 @@ class Player extends Component {
         setTimeout(() => this.setState({ error: false }), 2000);
     };
 
-    handleEdit(e, index) {
+    handleEdit(e, id) {
         e.preventDefault();
-        this.props.edit(this.state, index);
+        this.props.editPlayer(this.state, id);
         this.setState({ error: false })
     };
 
-    handleDelete(index) {
+    handleDelete(id) {
+        console.log(id);
         // the handleDelete prop is mapped from the component wrapper
         // when called it will dispatch the deletePlayer action (see`Player.wrap.js`)
-        // this class method is accepting the index prop as an argument and passing it into the prop function a parameter
+        // this class method is accepting the id prop as an argument and passing it into the prop function a parameter
         // so the reducer function will know which player it should delete from the players array stored in global state
-        this.props.delete(index);
+        this.props.deletePlayer(id);
     };
 
     render() {
         let { newName, error } = this.state;
-        let { players, index } = this.props; 
+        let { id, name, editMode } = this.props; 
         // we can make use of regular expressions to validate form inputs, in this case a person's name
         const isName = name => RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "g").test(name);
 
         return (
             <>
                 {
-                    !players[index].editMode ? 
+                    !editMode ? 
                     // if the editMode property of the player object currently being mapped over is false, 
                     // we display the name of the player, along with the edit and delete buttons
                     <li className="list-group-item">
-                        <span className="d-inline-block">{ players[index].name }</span>
-                        <span onClick={ () => this.handleDelete(index) } className="btn btn-danger btn-sm float-right mx-2">Delete</span>
-                        <span onClick={ () => this.handleEditMode(index) } className="btn btn-warning btn-sm float-right mx-2">Edit</span>
+                        <span className="d-inline-block">{ name }</span>
+                        <span onClick={ () => this.handleDelete(id) } className="btn btn-danger btn-sm float-right mx-2">Delete</span>
+                        <span onClick={ () => this.handleEditMode(id) } className="btn btn-warning btn-sm float-right mx-2">Edit</span>
                     </li> :
                     // if the editMode property of the player object currently being mapped over is true, 
                     // we display a form to edit the name of the player, along with a done button
                     // validation check in ternary operator - if name input is valid, edit the name, otherwise generate error message 
                     <li className="list-group-item">
-                        <form onSubmit={ isName(newName) ? (e) => this.handleEdit(e, index) : this.handleNameError } className="form">
+                        <form onSubmit={ isName(newName) ? (e) => this.handleEdit(e, id) : this.handleNameError } className="form">
                             <div className="float-left">
                                 <label htmlFor="editPlayer" className="help-block">Edit Player Name</label>
                                 <input type="text" id="editPlayer" className="form-control" onChange={ this.handleChange } value={ newName } />

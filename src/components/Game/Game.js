@@ -10,6 +10,8 @@ const Game = ({ game, players }) => {
             <h4>{ game }</h4>
             <div className="jumbotron d-flex justify-content-around p-2">
             {
+                // mapping over each player per game including the Score component, which allows user to add a score for each player
+                // by passing in the player id, score and played status, I'm able to make use of that data in the Score component when calling my score related functions in the reducer 
                 players.map(player => (
 
                         <div key={ player.id } className="col-sm-6 p-2 bg-success">

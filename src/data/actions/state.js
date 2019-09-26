@@ -5,28 +5,27 @@ export const newPlayer = values => {
     };
 };
 
-export const editPlayer = (values, index) => {
+export const editPlayer = (values, id) => {
     
     return {
         type: "EDIT_PLAYER",
         ...values, 
-        index,
+        id,
     };
 };
 
-export const deletePlayer = (values, index) => {
+export const deletePlayer = (id) => {
     return {
         type: "DELETE_PLAYER",
-        ...values,
-        index,
+        id,
     };
 };
 
-export const editMode = (values, index) => {
+export const editMode = (values, id) => {
     return {
         type: "EDIT_MODE",
         ...values,
-        index,
+        id,
     };
 };
 

@@ -20,10 +20,14 @@ const newPlayer = (state, { name }) => {
     };
 };
 
-const editPlayer = (state, { newName, index }) => {
+const editPlayer = (state, { newName, id }) => {
+    console.log(id);
     let players = [...state.players]; 
+    let index = players.findIndex(player => player.id === id);
+    console.log(index);
     
     players.splice(index, 1, {
+        ...players[index],
         name: newName,
         editMode: false,
     });
@@ -36,18 +40,27 @@ const editPlayer = (state, { newName, index }) => {
     };
 };
 
-const deletePlayer = (state, { index }) => {
+const deletePlayer = (state, { id }) => {
     let players = [...state.players];
+    let index = players.findIndex(player => player.id === id);
     players.splice(index, 1);
+
+    console.log(index);
 
     return {
         ...state,
-        players: players,
+        players: [
+            ...players,
+        ],
     };
 };
 
-const editMode = (state, { index }) => {
+const editMode = (state, { id }) => {
     let players = [...state.players];
+
+    let index = players.findIndex(player => player.id === id);
+    console.log(index);
+
     players[index].editMode = true;
 
     return {
@@ -99,7 +112,7 @@ const viewResults = state => {
 };
 
 const score = (state, { newScore, id }) => {
-    let tournament = newTournamentArray(state.tournament, id, newScore);
+    let tournament = newTournamentArray(state.tournament, id, +newScore);
 
     return {
         ...state,
@@ -109,11 +122,21 @@ const score = (state, { newScore, id }) => {
     };
 };
 
-const newRound = state => {
-    let tournament = state.tournament;
-    let winningScore = state.winningScore;
-    let winningPlayers = winners(tournament, winningScore);
+const history = state => {
+    let tournament = [...state.tournament];
 
+    return {
+        ...state,
+        history: [
+            ...state.history,
+            tournament,
+        ],
+    };
+};
+
+const newRound = state => {
+    let tournament = [...state.tournament];
+    let winningPlayers = winners(tournament, state.winningScore);
     winningPlayers.map(player => player.score = "");
     winningPlayers.map(player => player.played = false);
     let newPlayers = split(shuffle(winningPlayers));
@@ -123,15 +146,11 @@ const newRound = state => {
         tournament: [
             ...newPlayers
         ],
-        history: [
-            ...state.history,
-            tournament
-        ],
     };
 };
 
 const endTournament = state => {
-    let tournament = state.tournament;
+    let tournament = [...state.tournament];
     let winningScore = state.winningScore;
     let winningPlayers = winners(tournament, winningScore);
 
@@ -139,10 +158,6 @@ const endTournament = state => {
         ...state,
         tournament: [
             ...winningPlayers,
-        ],
-        history: [
-            ...state.history,
-            tournament
         ],
         settingsView: false,
         tournamentView: false,
@@ -161,8 +176,8 @@ const reducer = (state, action) => {
         case "TOURNAMENT": return viewTournament(state, action);
         case "RESULTS": return viewResults(state, action);
         case "SCORE": return score(state, action);
-        case "NEW_ROUND": return newRound(state, action);
-        case "END_TOURNAMENT": return endTournament(state, action);
+        case "NEW_ROUND": return newRound(history(state, action));
+        case "END_TOURNAMENT": return endTournament(history(state, action));
         default: return state;
     }
 }

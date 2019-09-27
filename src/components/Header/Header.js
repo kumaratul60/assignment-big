@@ -1,5 +1,9 @@
 import React, { Component } from "react";
+import Background from "./../../images/flow-2.jpg";
 
+let headerStyle = {
+    backgroundImage: `url(${ Background })`
+}
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -23,12 +27,11 @@ class Header extends Component {
     render() {
         return (
             <>
-                <div className="page-header" >
-                    <h2 className="m-2 text-center">Ping Pong Tournament Team Generator</h2>
+                <div className="page-header p-3" style={ headerStyle }>
+                    <h2 className="m-2 text-center">Ping Pong Bracket Generator</h2>
                     <ul className="nav justify-content-center">
-                        <li onClick={ this.handleSettings } className="nav-item m-2">Settings</li>
-                        <li onClick={ this.handleTournament } className="nav-item m-2">Tournament</li>
-                        <li onClick={ this.handleResults } className="nav-item m-2">Results</li>
+                        <li onClick={ this.handleSettings } className="nav-item m-2">New Tournament</li>
+                        <li onClick={ this.handleResults } className="nav-item m-2">Score Board</li>
                     </ul>
                 </div>
             </>

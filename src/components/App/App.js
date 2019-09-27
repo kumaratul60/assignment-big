@@ -2,11 +2,12 @@ import React from "react";
 // import Component wrappers to gain access to their Components
 import Header from "./../Header/Header.wrap";
 import Settings from "./../Settings/Settings.wrap";
-import Tournament from "./../Tournament/Tournament.wrap";
+import Round from "./../Round/Round.wrap";
 import Results from "./../Results/Results.wrap";
+import "./../../css/custom.css";
 
 // destructure props passed in by Component wrapper
-const App = ({ settingsView, tournamentView, resultsView }) => (
+const App = ({ settingsView, tournamentView, resultsView, done }) => (
     <>
         <Header />
         {
@@ -15,7 +16,7 @@ const App = ({ settingsView, tournamentView, resultsView }) => (
         }
         {
             // only display the main tournament page if the tournamentView prop mapped from state is set to true
-            tournamentView ? <Tournament /> : null
+            tournamentView && !done ? <Round /> : null
         }
         {
             // only display the main tournament page if the tournamentView prop mapped from state is set to true

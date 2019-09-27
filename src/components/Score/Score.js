@@ -8,7 +8,7 @@ class Score extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newScore: "",
+            newScore: 0,
             error: false,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -28,14 +28,14 @@ class Score extends Component {
 
     handleError(e) {
         e.preventDefault();
-        this.setState({ error: true, newScore: "" });
+        this.setState({ error: true, newScore: 0 });
         setTimeout(() => this.setState({ error: false }), 1000);
     };
 
     handleSubmit(e, id) {
         e.preventDefault();
         this.props.handleScore(this.state, id);
-        // this.setState({ newScore: "" });
+        this.setState({ newScore: 0 });
     };
 
     render() {
@@ -44,18 +44,18 @@ class Score extends Component {
         return (  
             <>
                 {
-                    played ? <h3>{ score }</h3> :
+                    played ? <h1>{ score }</h1> :
                 
                     <form onSubmit={ error || valid(tournament, +newScore, winningScore, id) ? this.handleError : (e) => this.handleSubmit(e, id) }>
                         <label className="d-block">Add Score</label>
                         <input 
                             onChange={ this.handleChange } 
                             type="number" 
-                            className={ `form-control col-sm-4 d-inline-block ${ error ? "border border-danger" : null }` } 
+                            className={ `form-control col-sm-4 d-inline-block ${ error ? "border border-danger" : "" }` } 
                             value={ newScore } 
                             required
                         />
-                        <button type="submit" className="btn btn-primary btn-sm m-2">
+                        <button type="submit" className="btn m-2">
                             <FontAwesomeIcon icon={ faPlus } />
                         </button>
                     </form>

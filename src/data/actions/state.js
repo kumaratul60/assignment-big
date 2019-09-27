@@ -76,3 +76,9 @@ export const endTournament = () => {
         type: "END_TOURNAMENT",
     };
 };
+
+export const history = () => {
+    return {
+        type: "HISTORY",
+    };
+};

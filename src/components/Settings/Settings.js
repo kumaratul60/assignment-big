@@ -69,32 +69,47 @@ class Settings extends Component {
 
         return (
             <>
-                <form onSubmit={ isName(name) ? this.handleSubmitName : this.handleNameError } >
-                    <label htmlFor="names" className="help-block">Add Player</label>
-                    <input onChange={ this.handleChangeName } id="names" className="form-control" value={ name } />
-                    <button type="submit" className="btn btn-primary mt-3">Add</button>
-                    { !errorName ? null : <p className="alert alert-danger mt-3">Please enter a valid name.</p> }
-                </form>
+                <div className="p-5 overflow-auto col-md-12">
+                    <h3 className="text-center mb-3">New Tournament</h3>
+                    <h5 className="text-center mb-3">Please add the names of all your players</h5>
+                    <div className="container-settings">
+                        <div>
+                            <form onSubmit={ isName(name) ? this.handleSubmitName : this.handleNameError } className="clearfix">
+                                <div>
+                                    <label htmlFor="names" className="help-block">Add Player</label>
+                                    <input onChange={ this.handleChangeName } id="names" className="form-control" value={ name } />
+                                </div>
+                                <button type="submit" className="btn btn-primary mt-3">Add</button>
+                                { !errorName ? null : <p className="alert alert-danger mt-3">Please enter a valid name.</p> }
+                            </form>
 
-                <ul className="list-group mt-3 col-sm-6 float-left">
-                    {
-                        players.map(player => (
-                            <Player key={ player.id } id={ player.id } name={ player.name } editMode={ player.editMode } />
-                        ))
-                    }
-                </ul>
+                            <form onSubmit={ isPowerOf2(players.length) ? this.handleSubmitTournament : this.handleTournamentError } className="form mt-3 p-0">
+                                <label className="help-block">Select winning score</label>
+                                <select onChange={ this.handleChangeScore } className="custom-select" value={ winningScore }>
+                                    <option value="11">11</option>
+                                    <option value="21">21</option>
+                                </select>
 
-                <form onSubmit={ isPowerOf2(players.length) ? this.handleSubmitTournament : this.handleTournamentError } className="form col-sm-6 mt-3 p-0 float-right">
-                    <label className="help-block">Select winning score</label>
-                    <select onChange={ this.handleChangeScore } className="custom-select" value={ winningScore }>
-                        <option value="11">11</option>
-                        <option value="21">21</option>
-                    </select>
-
-                    <input type="submit" className="btn btn-success mt-3" value="Create Tournament" />
-                    { !errorTournament ? null : <p className="alert alert-danger mt-3">The number of players must be n<sup>2</sup> (4, 8, 16, 32 etc)</p> }
-                
-                </form>
+                                <input type="submit" className="btn btn-success mt-3" value="Start" />
+                                { !errorTournament ? null : <p className="alert alert-danger mt-3">The number of players must be n<sup>2</sup> (4, 8, 16, 32 etc)</p> }
+                            </form>
+                        </div>
+                        
+                        {
+                            players.length === 0 ? null :
+                                <div>
+                                    <ul className="list-group mt-3">
+                                        {
+                                            players.map(player => (
+                                                <Player key={ player.id } id={ player.id } name={ player.name } editMode={ player.editMode } />
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                        }
+                        
+                    </div>
+                </div>
             </>
         );
     }

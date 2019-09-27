@@ -8,6 +8,8 @@ const initial = {
     settingsView: true,
     tournamentView: false,
     resultsView: false,
+    done: false,
+    round: 1,
 };
 
 export default initial;

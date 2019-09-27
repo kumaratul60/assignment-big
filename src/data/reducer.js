@@ -131,25 +131,14 @@ const history = state => {
 
 const newRound = state => {
     let round = state.tournament;
-    console.log(round);
-    
     let filterWinners = winners(round);
-    console.log(filterWinners);
-    
-    let resetPlayed = filterWinners.map(player => {
-        return {
-            ...player,
-            played: false,
-            score: 0,
-        }
-    });
-    console.log(resetPlayed);
-    
+    let resetPlayed = filterWinners.map(player => ({
+        ...player,
+        played: false,
+        score: 0,
+    }));    
     let shuffleWinners = shuffle(resetPlayed);
-    console.log(shuffleWinners);
-    
     let newRound = split(shuffleWinners);
-    console.log(newRound);    
 
     return {
         ...state,

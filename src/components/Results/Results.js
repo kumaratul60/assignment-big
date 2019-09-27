@@ -11,7 +11,7 @@ class Results extends Component {
     }
 
     render() {
-        let { history, winningScore } = this.props;
+        let { history } = this.props;
         let reverseHistory = [...history];
         reverseHistory.reverse();
 
@@ -41,7 +41,7 @@ class Results extends Component {
                                                     game.map(player => (
                                                         <td key={ player.id } style={ { width: "33%" } }>
                                                             { player.name } &nbsp;
-                                                        <span className="btn btn-pill btn-success">{ player.score }</span>
+                                                        <span className="badge badge-pill badge-warning">{ player.score }</span>
                                                         </td>
                                                     ))
                                                 }

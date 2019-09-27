@@ -62,9 +62,12 @@ class Settings extends Component {
         const isName = name => RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "g").test(name);
 
         const isPowerOf2 = n => {
-            for (let i = n; i >= 2; i / 2) {                
-                return (i / 2) % 2 === 0;
-            };
+            for (let i = 1; i < 10; i += 1) {
+                if (Math.pow(2, i) === n) {
+                    return true;
+                };
+            }
+            return false;
         };
 
         return (
@@ -100,8 +103,8 @@ class Settings extends Component {
                                 <div>
                                     <ul className="list-group mt-3">
                                         {
-                                            players.map(player => (
-                                                <Player key={ player.id } id={ player.id } name={ player.name } editMode={ player.editMode } />
+                                            players.map((player, count) => (
+                                                <Player key={ player.id } id={ player.id } name={ player.name } editMode={ player.editMode } count={ count } />
                                             ))
                                         }
                                     </ul>

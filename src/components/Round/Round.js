@@ -21,15 +21,15 @@ class Round extends Component {
     };
 
     render() {
-        let { tournament, done, round } = this.props;        
+        let { tournament, done, round } = this.props;    
 
         return done ? null : (
             <>
                 {
-                    <h2 className="round-title">{ tournament.length === 1 ? "Final" : tournament.length === 2 ? "Semifinals" : tournament.length === 2 ? "Quarterfinals" : `Round ${round}` }</h2>
+                    <h2 className="round-title">{ tournament.length === 1 ? "Final" : tournament.length === 2 ? "Semifinals" : tournament.length === 3 ? "Quarterfinals" : `Round ${round}` }</h2>
                 }
                 
-                <div className="round-games" style={ tournament.length === 1 ? { display: "inherit" } : "" }>
+                <div className="round-games" style={ tournament.length === 1 ? { display: "inherit" } : null }>
                     {                
                         tournament.map((game, i) => (
                             <Game key={ i } game={ `Game ${i + 1}` } players={ game } />

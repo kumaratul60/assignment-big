@@ -50,7 +50,6 @@ class Player extends Component {
     };
 
     handleDelete(id) {
-        console.log(id);
         // the handleDelete prop is mapped from the component wrapper
         // when called it will dispatch the deletePlayer action (see`Player.wrap.js`)
         // this class method is accepting the id prop as an argument and passing it into the prop function a parameter
@@ -60,7 +59,7 @@ class Player extends Component {
 
     render() {
         let { newName, error } = this.state;
-        let { id, name, editMode } = this.props; 
+        let { id, name, editMode, count } = this.props; 
         // we can make use of regular expressions to validate form inputs, in this case a person's name
         const isName = name => RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "g").test(name);
 
@@ -71,7 +70,7 @@ class Player extends Component {
                     // if the editMode property of the player object currently being mapped over is false, 
                     // we display the name of the player, along with the edit and delete buttons
                     <li className="list-group-item">
-                        <span className="d-inline-block">{ name }</span>
+                            <span className="d-inline-block">{ count + 1 } .&nbsp; { name }</span>
                         <span onClick={ () => this.handleDelete(id) } className="btn btn-danger btn-sm float-right mx-2">Delete</span>
                         <span onClick={ () => this.handleEditMode(id) } className="btn btn-warning btn-sm float-right mx-2">Edit</span>
                     </li> :

@@ -4,6 +4,7 @@ import Header from "./../Header/Header.wrap";
 import Settings from "./../Settings/Settings.wrap";
 import Round from "./../Round/Round.wrap";
 import Results from "./../Results/Results.wrap";
+import Footer from "./../Footer/Footer";
 // import bootstrap stylesheet
 import "./../../css/bootstrap.min.css";
 // import custom styling
@@ -25,6 +26,7 @@ const App = ({ settingsView, gamesView, resultsView, tournamentComplete }) => (
             // only display the main games page if the resultsView prop mapped from state is set to true
             resultsView ? <Results /> : null
         }
+        <Footer />
         
     </>
 );

@@ -39,7 +39,8 @@ let winningScore = 21;
 // the next step is to shuffle and split the flat array to create a new round of games 
 
 const winners = (games) => {
-    return games.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
+    let result = games.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
+    return result;
 };
 
 console.log("games", games);

@@ -1,6 +1,6 @@
 import { shuffle } from "./functions/shuffle";
 import { split } from "./functions/split";
-import { newTournamentArray } from "./functions/score";
+import { newGamesArray } from "./functions/score";
 import { winners } from "./functions/winners";
 import initial from "./initial";
 
@@ -108,14 +108,33 @@ const viewResults = state => {
 
 const score = (state, { newScore, id }) => {
     let round = state.games;
-    let updatedTournament = newTournamentArray(round, id, +newScore);
-
-    return {
-        ...state,
-        games: [
-            ...updatedTournament
-        ],
+    let updatedGames = newGamesArray(round, id, +newScore);
+    let completeCheck = updatedGames.flatMap(game => game.map((player => player.played))).some(el => !el);
+    console.log(completeCheck);
+    
+    if (completeCheck) {
+        return {
+            ...state,
+            roundComplete: false,
+            games: [
+                ...updatedGames
+            ],
+        }
+    } else {
+        return {
+            ...state,
+            roundComplete: true,
+            games: [
+                ...updatedGames
+            ],
+        }
     };
+    // return {
+    //     ...state,
+    //     games: [
+    //         ...updatedGames
+    //     ],
+    // }
 };
 
 const history = state => {
@@ -144,6 +163,7 @@ const newRound = state => {
         ...state,
         games: newRound,
         roundCounter: state.roundCounter + 1,
+        roundComplete: false,
     };
 };
 
@@ -154,7 +174,8 @@ const endTournament = state => {
         settingsView: false,
         gamesView: false,
         resultsView: true,
-        completed: true,
+        roundComplete: false,
+        tournamentComplete: true,
     };
 };
 

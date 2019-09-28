@@ -2,8 +2,8 @@ import { connect } from "react-redux";
 import Settings from "./Settings";
 import { newPlayer, newTournament } from "./../../data/actions/state";
 
-const mapStateToProps = state => ({
-    players: state.players,
+const mapStateToProps = ({ players }) => ({
+    players,
 }); 
 
 const mapDispatchToProps = dispatch => ({

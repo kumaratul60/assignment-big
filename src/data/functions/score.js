@@ -43,7 +43,7 @@ export const valid = (games, newScore, winningScore, id) => {
 };
 
 // all-in-one function to return a copy of games array with new score added
-export const newTournamentArray = (games, id, score) => {
+export const newGamesArray = (games, id, score) => {
     let gameArray = findGame(games, id);
     let gameIndex = findGameIndex(games, id);
     let playerIndex = findPlayerIndex(gameArray, id);

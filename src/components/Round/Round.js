@@ -21,16 +21,16 @@ class Round extends Component {
     };
 
     render() {
-        let { games, completed, roundCounter } = this.props;    
+        let { games, tournamentComplete, roundCounter, roundComplete } = this.props;
 
-        return completed ? null : (
+        return tournamentComplete ? null : (
             <>
                 {
                     <h2 className="round-title">{ games.length === 1 ? "Final" : games.length === 2 ? "Semifinals" : games.length === 4 ? "Quarterfinals" : `Round ${roundCounter}` }</h2>
                 }
-                
+
                 <div className="round-games" style={ games.length === 1 ? { display: "inherit" } : null }>
-                    {                
+                    {
                         games.map((game, i) => (
                             <Game key={ i } game={ `Game ${i + 1}` } players={ game } />
                         ))
@@ -41,23 +41,16 @@ class Round extends Component {
 
                 <div className="next-round">
                     {
-                        games.length === 1 ?
-                        <button
-                            onClick={ this.handleFinish }
-                            className="btn btn-primary">
-                            Finish
-                        </button> : 
-                        <button
-                            onClick={ this.handleNewRound }
-                            className="btn btn-primary">
-                            Next Round
-                        </button> 
+                        roundComplete ?
+                            games.length === 1 ?
+                                <button onClick={ this.handleFinish } className="btn btn-primary">Finish</button> :
+                                <button onClick={ this.handleNewRound } className="btn btn-primary">Next Round</button> : null
                     }
                 </div>
             </>
         );
     }
-    
+
 };
 
 export default Round;

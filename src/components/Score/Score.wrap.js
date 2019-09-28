@@ -2,9 +2,9 @@ import { connect } from "react-redux";
 import Score from "./Score";
 import { addScore } from "./../../data/actions/state";
 
-const mapStateToProps = state => ({
-    winningScore: state.winningScore,
-    games: state.games,
+const mapStateToProps = ({ winningScore, games }) => ({
+    winningScore,
+    games,
 });
 
 const mapDispatchToProps = dispatch => ({

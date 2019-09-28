@@ -7,7 +7,7 @@ import Results from "./../Results/Results.wrap";
 import "./../../css/custom.css";
 
 // destructure props passed in by Component wrapper
-const App = ({ settingsView, gamesView, resultsView, completed }) => (
+const App = ({ settingsView, gamesView, resultsView, tournamentComplete }) => (
     <>
         <Header />
         {
@@ -16,7 +16,7 @@ const App = ({ settingsView, gamesView, resultsView, completed }) => (
         }
         {
             // only display the main games page if the gamesView prop mapped from state is set to true
-            gamesView && !completed ? <Round /> : null
+            gamesView && !tournamentComplete ? <Round /> : null
         }
         {
             // only display the main games page if the gamesView prop mapped from state is set to true

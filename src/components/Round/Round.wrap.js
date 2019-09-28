@@ -2,11 +2,12 @@ import { connect } from "react-redux";
 import Round from "./Round";
 import { newRound, endTournament, history } from "./../../data/actions/state";
 
-const mapStateToProps = state => ({
-    games: state.games,
-    winningScore: state.winningScore,
-    completed: state.completed,
-    roundCounter: state.roundCounter,
+const mapStateToProps = ({ games, winningScore, tournamentComplete, roundComplete, roundCounter }) => ({
+    games,
+    winningScore,
+    tournamentComplete,
+    roundComplete,
+    roundCounter,
 });
 
 const mapDispatchToProps = dispatch => ({

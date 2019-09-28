@@ -4,7 +4,8 @@ import Header from "./../Header/Header.wrap";
 import Settings from "./../Settings/Settings.wrap";
 import Round from "./../Round/Round.wrap";
 import Results from "./../Results/Results.wrap";
-import "./../../css/custom.css";
+import "./../../css/bootstrap.min.css";
+import "./../../css/style.min.css";
 
 // destructure props passed in by Component wrapper
 const App = ({ settingsView, gamesView, resultsView, tournamentComplete }) => (

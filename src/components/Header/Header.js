@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Background from "./../../images/flow-2.jpg";
+import Background from "./../../images/header.jpg";
 
 let headerStyle = {
     backgroundImage: `url(${ Background })`

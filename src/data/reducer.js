@@ -110,7 +110,6 @@ const score = (state, { newScore, id }) => {
     let round = state.games;
     let updatedGames = newGamesArray(round, id, +newScore);
     let completeCheck = updatedGames.flatMap(game => game.map((player => player.played))).some(el => !el);
-    console.log(completeCheck);
     
     if (completeCheck) {
         return {

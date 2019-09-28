@@ -24,11 +24,11 @@ class Results extends Component {
                             <table key={ index + Math.random() } className="results-table">
                                 <thead className="results-thead">
                                     <tr>
-                                        <th scope="col" style={ { width: "33%" } }>
+                                        <th style={ { width: "33%" } }>
                                             { index === 0 ? "Finals" : index === 1 ? "Semifinals" : index === 2 ? "Quarterfinals" : `Round ${history.length % 3}` }
                                         </th>
-                                        <th scope="col">Player 1</th>
-                                        <th scope="col">Player 2</th>
+                                        <th>Player 1</th>
+                                        <th>Player 2</th>
                                     </tr>
                                 </thead>
                                 <tbody className="results-tbody">
@@ -36,7 +36,7 @@ class Results extends Component {
                                         round.map((game, index) => (
 
                                             <tr key={ index + Math.random() }>
-                                                <th scope="row" style={ { width: "33%" } }>Game { index + 1 }</th>
+                                                <th style={ { width: "33%" } }>Game { index + 1 }</th>
                                                 {
                                                     game.map(player => (
                                                         <td key={ player.id } style={ { width: "33%" } }>

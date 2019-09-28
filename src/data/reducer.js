@@ -1,10 +1,11 @@
 import { shuffle } from "./functions/shuffle";
 import { split } from "./functions/split";
-import { newGamesArray } from "./functions/score";
+import { newGames } from "./functions/score";
 import { winners } from "./functions/winners";
 import initial from "./initial";
 
 const newPlayer = (state, { name }) => {
+
     return {
         ...state,
         idCounter: state.idCounter + 1,
@@ -12,7 +13,7 @@ const newPlayer = (state, { name }) => {
             ...state.players,
             {
                 "id": state.idCounter + 1,
-                "name": name,
+                "name": name.trim(),
                 "editMode": false,
                 "score": 0,
                 "played": false,
@@ -80,6 +81,7 @@ const newTournament = (state, { winningScore }) => {
 };
 
 const viewSettings = () => {
+
     return {
         ...initial,
         settingsView: true,
@@ -88,7 +90,8 @@ const viewSettings = () => {
     };
 };
 
-const viewTournament = state => {
+const viewGames = state => {
+
     return {
         ...state,
         settingsView: false,
@@ -98,6 +101,7 @@ const viewTournament = state => {
 };
 
 const viewResults = state => {
+
     return {
         ...state,
         settingsView: false,
@@ -108,10 +112,11 @@ const viewResults = state => {
 
 const score = (state, { newScore, id }) => {
     let round = state.games;
-    let updatedGames = newGamesArray(round, id, +newScore);
+    let updatedGames = newGames(round, id, +newScore);
     let completeCheck = updatedGames.flatMap(game => game.map((player => player.played))).some(el => !el);
     
     if (completeCheck) {
+
         return {
             ...state,
             roundComplete: false,
@@ -120,6 +125,7 @@ const score = (state, { newScore, id }) => {
             ],
         }
     } else {
+
         return {
             ...state,
             roundComplete: true,
@@ -128,12 +134,6 @@ const score = (state, { newScore, id }) => {
             ],
         }
     };
-    // return {
-    //     ...state,
-    //     games: [
-    //         ...updatedGames
-    //     ],
-    // }
 };
 
 const history = state => {
@@ -167,7 +167,7 @@ const newRound = state => {
 };
 
 const endTournament = state => {
-
+    
     return {
         ...state,
         settingsView: false,
@@ -186,7 +186,7 @@ const reducer = (state, action) => {
         case "EDIT_MODE": return editMode(state, action);
         case "START": return newTournament(state, action);
         case "SETTINGS": return viewSettings(state, action);
-        case "TOURNAMENT": return viewTournament(state, action);
+        case "TOURNAMENT": return viewGames(state, action);
         case "RESULTS": return viewResults(state, action);
         case "SCORE": return score(state, action);
         case "NEW_ROUND": return newRound(state, action);

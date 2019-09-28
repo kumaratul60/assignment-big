@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import Player from "./../Player/Player.wrap";
 
+const isName = name => RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "g").test(name);
+
+const isPowerOf2 = n => {
+    for (let i = 1; i < 10; i += 1) {
+        if (Math.pow(2, i) === n) {
+            return true;
+        };
+    }
+    return false;
+};
+
 class Settings extends Component {
 
     constructor(props) {
@@ -10,20 +21,22 @@ class Settings extends Component {
             name: "",
             winningScore: 11,
             errorName: false,
-            errorTournament: false,
+            errorPlayers: false,
         };
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleNameError = this.handleNameError.bind(this);
         this.handleSubmitName = this.handleSubmitName.bind(this);
-        this.handleChangeScore = this.handleChangeScore.bind(this);
-        this.handleTournamentError = this.handleTournamentError.bind(this);
-        this.handleSubmitTournament = this.handleSubmitTournament.bind(this);
+        this.handleWinningScore = this.handleWinningScore.bind(this);
+        this.handlePlayersError = this.handlePlayersError.bind(this);
+        this.handleSubmitPlayers = this.handleSubmitPlayers.bind(this);
     };
 
+    // allows the user to edit the player name
     handleChangeName(e) {
         this.setState({ name: e.currentTarget.value });
     };
 
+    // displays an error and resets the name field if name validation fails
     handleNameError(e) {
         e.preventDefault();
         this.setState({
@@ -33,42 +46,36 @@ class Settings extends Component {
         setTimeout(() => this.setState({ errorName: false }), 4000);
     };
 
+    // this adds the player name to the players array in state 
     handleSubmitName(e) {
         e.preventDefault();
         this.setState({ name: "" });
         this.props.handleName(this.state);
     };
 
-    handleChangeScore(e) {
+    // allows the user to change the winning score
+    handleWinningScore(e) {
         this.setState({ winningScore: e.currentTarget.value });
     };
     
-    handleTournamentError(e) {
+    // the number of players must be a power of 2 e.g. 2, 4, 8, 16, 32... 
+    // TODO: it would be good if the app supported any number of players but this would have been a ton more functionality and there just wasn't time - a good idea for the 'features list'
+    handlePlayersError(e) {
         e.preventDefault();
-        this.setState({ errorTournament: true });
-        setTimeout(() => this.setState({ errorTournament: false }), 4000);
+        this.setState({ errorPlayers: true });
+        setTimeout(() => this.setState({ errorPlayers: false }), 4000);
     };
 
-    handleSubmitTournament(e) {
+    // this method calls the dispatch action and creates the first round of the new tournament
+    handleSubmitPlayers(e) {
         e.preventDefault();
-        this.props.handleTournament(this.state);
-        this.setState({ errorTournament: false });
+        this.props.handlePlayers(this.state);
+        this.setState({ errorPlayers: false });
     };
     
     render() {
-        let { name, winningScore, errorTournament, errorName } = this.state;
+        let { name, winningScore, errorPlayers, errorName } = this.state;
         let { players } = this.props;
-
-        const isName = name => RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", "g").test(name);
-
-        const isPowerOf2 = n => {
-            for (let i = 1; i < 10; i += 1) {
-                if (Math.pow(2, i) === n) {
-                    return true;
-                };
-            }
-            return false;
-        };
 
         return (
             <>
@@ -77,28 +84,30 @@ class Settings extends Component {
                     <h5 className="text-center mb-3">Please add the names of all your players</h5>
                     <div className="container-settings">
                         <div>
-                            <form onSubmit={ isName(name) ? this.handleSubmitName : this.handleNameError } className="clearfix">
+                            <form onSubmit={ isName(name.trim()) ? this.handleSubmitName : this.handleNameError } className="clearfix">
                                 <div>
                                     <label htmlFor="names" className="help-block">Add Player</label>
                                     <input onChange={ this.handleChangeName } id="names" className="form-control" value={ name } />
                                 </div>
                                 <button type="submit" className="btn btn-primary mt-3">Add</button>
-                                { !errorName ? null : <p className="alert alert-danger mt-3">Please enter a valid name.</p> }
+                                { !errorName ? null : <p className="alert alert-danger mt-3">Please enter a valid name</p> }
                             </form>
 
-                            <form onSubmit={ isPowerOf2(players.length) ? this.handleSubmitTournament : this.handleTournamentError } className="form mt-3 p-0">
-                                <label className="help-block">Select winning score</label>
-                                <select onChange={ this.handleChangeScore } className="custom-select" value={ winningScore }>
+                            <form onSubmit={ isPowerOf2(players.length) ? this.handleSubmitPlayers : this.handlePlayersError } className="form mt-3 p-0">
+                                <label htmlFor="winningScore" className="help-block">Select winning score</label>
+                                <select onChange={ this.handleWinningScore } className="custom-select" value={ winningScore } id="winningScore">
                                     <option value="11">11</option>
                                     <option value="21">21</option>
                                 </select>
 
                                 <input type="submit" className="btn btn-success mt-3" value="Start" />
-                                { !errorTournament ? null : <p className="alert alert-danger mt-3">The number of players must be n<sup>2</sup> (4, 8, 16, 32 etc)</p> }
+                                { !errorPlayers ? null : <p className="alert alert-danger mt-3">The number of players must be a power of 2 e.g. 2, 4, 8, 16, 32...</p> }
                             </form>
                         </div>
                         
                         {
+                            // map over the players array in state to display the list of added players
+                            // if players array is empty, display nothing 
                             players.length === 0 ? null :
                                 <div>
                                     <ul className="list-group mt-3">

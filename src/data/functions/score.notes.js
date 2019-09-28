@@ -1,7 +1,4 @@
-/*
- * Score Logic *
- ***********/
-
+// Score Logic
 // This document shows my testing process for adding scores to state and score validation
 
 // Sample games array 
@@ -42,15 +39,15 @@ let playerIndex = findPlayerIndex(gameArray, id);
 let playerAltIndex = findPlayerAltIndex(gameArray, id);
 
 // use the spread operator to create a new version of the games array
-let copyTournament = [...games];
+let copyGames = [...games];
 // use the variables stored above to update the score of a specific player
-copyTournament[gameIndex][playerIndex].score = 21;
+copyGames[gameIndex][playerIndex].score = 21;
 
 // return the score of player's opponent to compare it to the score being added 
 const findOpponentScore = (array, gameIndex, playerAltIndex) => array[gameIndex][playerAltIndex].score;
 
 // store the opponent score in a variable 
-let playerAltScore = findOpponentScore(copyTournament, gameIndex, playerAltIndex);
+let playerAltScore = findOpponentScore(copyGames, gameIndex, playerAltIndex);
 
 // score validation algorithm 
 const validateScore = (newScore, altScore, winningScore) => {
@@ -79,18 +76,16 @@ const valid = (games, newScore, winningScore, id) => {
 };
 
 // all-in-one function to return a copy of games array with new score added
-const newTournament = (games, id, score) => {
+const newGames = (games, id, score) => {
     let gameArray = findGame(games, id);
     let gameIndex = findGameIndex(games, id);
     let playerIndex = findPlayerIndex(gameArray, id);
-    let copyTournament = [...games];
-    copyTournament[gameIndex][playerIndex].score = score;
-    return copyTournament;
+    let copyGames = [...games];
+    copyGames[gameIndex][playerIndex].score = score;
+    return copyGames;
 };
 
-/*
- * Testing * 
- ***********/
+// Testing 
 
 console.log(`Find game with player id ${id}:`, gameArray, `\n`);
 // Find game with player id 5: [
@@ -105,7 +100,7 @@ console.log(`Find array index with player id ${id} within child array:`, playerI
 // Find array index with player id 5 within child array: 1 
 console.log(`new score for player id ${id}:`, (games[gameIndex])[playerIndex].score, `\n`);
 // new score for player id 5: 21 
-console.log("return games with updated score:", `\n`, copyTournament);
+console.log("return games with updated score:", `\n`, copyGames);
 // return games with updated score:
 // [
 //     [
@@ -124,13 +119,12 @@ console.log("return games with updated score:", `\n`, copyTournament);
 console.log(`Find array index for game opponent to player id ${id}:`, playerAltIndex);
 console.log("Return opponent score:", playerAltScore);
 
-// Test validiate function
+// Test validiate function 
 console.log(`Validate scores 21, 17: expected output: true, actual output: `, validateScore(21, 17, winningScore));
 console.log(`Validate scores 15, 17: expected output: false, actual output: `, validateScore(15, 17, winningScore));
 console.log(`Validate scores -1, 20: expected output: false, actual output: `, validateScore(-1, 20, winningScore));
 console.log(`Validate scores 21, 20: expected output: false, actual output: `, validateScore(21, 20, winningScore));
 console.log(`Validate scores 21, "": expected output: true, actual output: `, validateScore(21, "", winningScore));
 
-// test all-in-one valid function
-console.log(`Alt score (${playerAltScore}), New score (21), Is valid?`, valid(copyTournament, -4, winningScore, id));
-
+// Test all-in-one validiate function 
+console.log(`Alt score (${playerAltScore}), New score (21), Is valid?`, valid(copyGames, -4, winningScore, id));

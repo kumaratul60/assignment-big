@@ -35,7 +35,7 @@ let games = [
 
 let winningScore = 21;
 
-// a function to reduce the Tournament array in state (multiple games with 2 players in each and their respective scores), and output a single array of the winning players
+// a function to reduce the Games array in state (multiple games with 2 players in each and their respective scores), and output a single array of the winning players
 // the next step is to shuffle and split the flat array to create a new round of games 
 
 const winners = (games) => {

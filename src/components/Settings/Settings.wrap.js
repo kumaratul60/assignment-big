@@ -8,7 +8,7 @@ const mapStateToProps = ({ players }) => ({
 
 const mapDispatchToProps = dispatch => ({
     handleName: values => dispatch(newPlayer(values)),
-    handleTournament: values => dispatch(newTournament(values)),
+    handlePlayers: values => dispatch(newTournament(values)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

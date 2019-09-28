@@ -43,7 +43,7 @@ export const viewSettings = values => {
     };
 };
 
-export const viewTournament = values => {
+export const viewGames = values => {
     return {
         type: "TOURNAMENT",
         ...values,

@@ -1,19 +1,20 @@
 // the purpose of this function to shuffle an array
 // the application of this functon is to take an array of player objects and shuffle them into a random order
+// this function is based on the Fisher-Yates shuffle algorithm
 
-export const shuffle = players => {
+export const shuffle = array => {
 
-    let currentIndex = players.length;
-    let temporaryValue, randomIndex;
+    let index = array.length;
+    let temp, random;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
+    while (index !== 0) {
+        random = Math.floor(Math.random() * index);
+        index -= 1;
 
-        temporaryValue = players[currentIndex];
-        players[currentIndex] = players[randomIndex];
-        players[randomIndex] = temporaryValue;
-    }
+        temp = array[index];
+        array[index] = array[random];
+        array[random] = temp;
+    };
 
-    return players;
+    return array;
 };

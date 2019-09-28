@@ -109,10 +109,6 @@ form .help-block {
     font-size: 14px;
 }
 
-.game-container {
-    min-width: 400px;
-}
-
 .round-title {
     font-size: 30px;
     padding-top: 30px;
@@ -124,14 +120,15 @@ form .help-block {
     padding-bottom: 30px;
     margin: auto;
     text-align: center;
+    min-width: 300px;
 }
 
 .game {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    min-height: 500px;
-    max-width: 400px;
+    min-height: 450px;
+    max-width: 380px;
     margin: auto;
     overflow: auto;
     display: -webkit-box;
@@ -191,7 +188,6 @@ form .help-block {
 }
 
 .player .form-control {
-    /* min-width: 200px; */
     max-width: 200px;
 }
 
@@ -264,6 +260,15 @@ form .help-block {
         display: grid;
         grid-template-columns: auto auto;
     }
+
+    .game {
+        min-height: 500px;
+        max-width: 400px;
+    }
+
+    .game-container {
+        min-width: 400px;
+    }
 }
 
 @media print {
@@ -279,4 +284,3 @@ form .help-block {
         color: black;
     }
 }
-

@@ -3,10 +3,10 @@ import Round from "./Round";
 import { newRound, endTournament, history } from "./../../data/actions/state";
 
 const mapStateToProps = state => ({
-    tournament: state.tournament,
+    games: state.games,
     winningScore: state.winningScore,
-    done: state.done,
-    round: state.round,
+    completed: state.completed,
+    roundCounter: state.roundCounter,
 });
 
 const mapDispatchToProps = dispatch => ({

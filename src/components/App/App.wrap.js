@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 import App from "./App";
 
-const mapStateToProps = ({ settingsView, tournamentView, resultsView, done }) => ({
+const mapStateToProps = ({ settingsView, gamesView, resultsView, completed }) => ({
     // mapping these state props to make them available in wrapped component
     settingsView,
-    tournamentView,
+    gamesView,
     resultsView,
-    done,
+    completed,
 });
 
 export default connect(mapStateToProps)(App);

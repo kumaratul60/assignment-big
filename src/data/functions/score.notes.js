@@ -4,8 +4,8 @@
 
 // This document shows my testing process for adding scores to state and score validation
 
-// Sample tournament array 
-let tournament = [
+// Sample games array 
+let games = [
     [
         { id: 3, name: 'Susan', editMode: false, score: 0 },
         { id: 2, name: 'Richard', editMode: false, score: 11 }
@@ -24,9 +24,9 @@ let tournament = [
 const findGame = (array, id) => (array.filter(game => game.find(player => player.id === id)))[0];
 // return a player object by the player id 
 const findPlayer = (array, id) => array.find(player => player.id === id);
-// search the tournament array and return the index position of the sub-array that contains a specific player
+// search the games array and return the index position of the sub-array that contains a specific player
 const findGameIndex = (array, id) => array.findIndex(game => game.find(player => player.id === id));
-// search the game array within the tournament array and return the index position of a specific player 
+// search the game array within the games array and return the index position of a specific player 
 const findPlayerIndex = (array, id) => array.findIndex(player => player.id === id);
 // return the index position of the opponent
 const findPlayerAltIndex = (array, id) => array.findIndex(player => player.id !== id);
@@ -35,14 +35,14 @@ let id = 7; // player id for testing
 let winningScore = 21; // winning score for testing 
 
 // store the return values of the above functions in variables
-let gameArray = findGame(tournament, id);
+let gameArray = findGame(games, id);
 let playerObj = findPlayer(gameArray, id);
-let gameIndex = findGameIndex(tournament, id);
+let gameIndex = findGameIndex(games, id);
 let playerIndex = findPlayerIndex(gameArray, id);
 let playerAltIndex = findPlayerAltIndex(gameArray, id);
 
-// use the spread operator to create a new version of the tournament array
-let copyTournament = [...tournament];
+// use the spread operator to create a new version of the games array
+let copyTournament = [...games];
 // use the variables stored above to update the score of a specific player
 copyTournament[gameIndex][playerIndex].score = 21;
 
@@ -70,20 +70,20 @@ const validateScore = (newScore, altScore, winningScore) => {
 }
 
 // all-in-one validation function to be exported and used in Score component
-const valid = (tournament, newScore, winningScore, id) => {
-    let gameArray = findGame(tournament, id);
-    let gameIndex = findGameIndex(tournament, id);
+const valid = (games, newScore, winningScore, id) => {
+    let gameArray = findGame(games, id);
+    let gameIndex = findGameIndex(games, id);
     let playerAltIndex = findPlayerAltIndex(gameArray, id);
-    let playerAltScore = findOpponentScore(tournament, gameIndex, playerAltIndex);
+    let playerAltScore = findOpponentScore(games, gameIndex, playerAltIndex);
     return validateScore(+newScore, +playerAltScore, winningScore);
 };
 
-// all-in-one function to return a copy of tournament array with new score added
-const newTournament = (tournament, id, score) => {
-    let gameArray = findGame(tournament, id);
-    let gameIndex = findGameIndex(tournament, id);
+// all-in-one function to return a copy of games array with new score added
+const newTournament = (games, id, score) => {
+    let gameArray = findGame(games, id);
+    let gameIndex = findGameIndex(games, id);
     let playerIndex = findPlayerIndex(gameArray, id);
-    let copyTournament = [...tournament];
+    let copyTournament = [...games];
     copyTournament[gameIndex][playerIndex].score = score;
     return copyTournament;
 };
@@ -103,10 +103,10 @@ console.log(`Find array index of game with player id ${id}:`, gameIndex, `\n`);
 // Find array index of game with player id 5: 1 
 console.log(`Find array index with player id ${id} within child array:`, playerIndex, `\n`);
 // Find array index with player id 5 within child array: 1 
-console.log(`new score for player id ${id}:`, (tournament[gameIndex])[playerIndex].score, `\n`);
+console.log(`new score for player id ${id}:`, (games[gameIndex])[playerIndex].score, `\n`);
 // new score for player id 5: 21 
-console.log("return tournament with updated score:", `\n`, copyTournament);
-// return tournament with updated score:
+console.log("return games with updated score:", `\n`, copyTournament);
+// return games with updated score:
 // [
 //     [
 //         { id: 3, name: 'Susan', editMode: false, score: 0 },

@@ -1,4 +1,4 @@
-let tournament = [
+let games = [
     [
         {
             id: 2,
@@ -38,10 +38,10 @@ let winningScore = 21;
 // a function to reduce the Tournament array in state (multiple games with 2 players in each and their respective scores), and output a single array of the winning players
 // the next step is to shuffle and split the flat array to create a new round of games 
 
-const winners = (tournament) => {
-    return tournament.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
+const winners = (games) => {
+    return games.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
 };
 
-console.log("tournament", tournament);
-console.log("winners", winners(tournament));
+console.log("games", games);
+console.log("winners", winners(games));
 

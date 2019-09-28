@@ -25,7 +25,7 @@ class Results extends Component {
                                 <thead className="results-thead">
                                     <tr>
                                         <th style={ { width: "33%" } }>
-                                            { index === 0 ? "Finals" : index === 1 ? "Semifinals" : index === 2 ? "Quarterfinals" : `Round ${history.length % 3}` }
+                                            { index === 0 ? "Final" : index === 1 ? "Semifinals" : index === 2 ? "Quarterfinals" : `Round ${history.length % 3}` }
                                         </th>
                                         <th>Player 1</th>
                                         <th>Player 2</th>

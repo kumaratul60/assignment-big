@@ -8,7 +8,7 @@ class Score extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newScore: 0,
+            newScore: "",
             error: false,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -17,36 +17,36 @@ class Score extends Component {
     };
 
     handleChange(e) {
-        let { winningScore, tournament, id } = this.props;
+        let { winningScore, games, id } = this.props;
         let score = e.currentTarget.value;
 
         this.setState({
             newScore: score,
-            error: valid(tournament, +score, winningScore, id),
+            error: valid(games, +score, winningScore, id),
         });
     };
 
     handleError(e) {
         e.preventDefault();
-        this.setState({ error: true, newScore: 0 });
+        this.setState({ error: true, newScore: "" });
         setTimeout(() => this.setState({ error: false }), 1000);
     };
 
     handleSubmit(e, id) {
         e.preventDefault();
         this.props.handleScore(this.state, id);
-        this.setState({ newScore: 0 });
+        this.setState({ newScore: "" });
     };
 
     render() {
         let { newScore, error } = this.state;
-        let { id, score, winningScore, tournament, played } = this.props;
+        let { id, score, winningScore, games, played } = this.props;
         return (  
             <>
                 {
                     played ? <h1>{ score }</h1> :
                 
-                    <form onSubmit={ error || valid(tournament, +newScore, winningScore, id) ? this.handleError : (e) => this.handleSubmit(e, id) }>
+                    <form onSubmit={ error || valid(games, +newScore, winningScore, id) ? this.handleError : (e) => this.handleSubmit(e, id) }>
                         <label className="d-block">Add Score</label>
                         <input 
                             onChange={ this.handleChange } 

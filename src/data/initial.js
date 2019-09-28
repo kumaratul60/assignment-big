@@ -1,15 +1,14 @@
 const initial = {
-    counter: -1,
+    idCounter: 0,
     players: [],
-    editMode: false,
-    tournament: [],
+    games: [],
     history: [],
-    winningScore: null,
+    roundCounter: 1,
+    winningScore: "",
     settingsView: true,
-    tournamentView: false,
+    gamesView: false,
     resultsView: false,
-    done: false,
-    round: 1,
+    completed: false,
 };
 
 export default initial;

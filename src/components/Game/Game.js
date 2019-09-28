@@ -9,7 +9,7 @@ let gameBackground = {
 // destructure props passed in from parent component
 const Game = ({ game, players }) => {
     return ( 
-        // this component is accepting it's data from it's parent, which is iterating over the tournament array
+        // this component is accepting it's data from it's parent, which is iterating over the games array
         // this is the template for outputting the data for each game e.g. players 
         <div className="game-container">
             <h4>{ game }</h4>

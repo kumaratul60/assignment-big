@@ -2,9 +2,9 @@ import { connect } from "react-redux";
 import Results from "./Results";
 import { viewSettings } from "./../../data/actions/state";
 
-const mapStateToProps = ({ history, tournament, winningScore }) => ({
+const mapStateToProps = ({ history, games, winningScore }) => ({
     history,
-    tournament,
+    games,
     winningScore
 });
 

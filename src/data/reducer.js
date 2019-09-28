@@ -7,11 +7,11 @@ import initial from "./initial";
 const newPlayer = (state, { name }) => {
     return {
         ...state,
-        counter: state.counter + 1,
+        idCounter: state.idCounter + 1,
         players: [
             ...state.players,
             {
-                "id": state.counter + 1,
+                "id": state.idCounter + 1,
                 "name": name,
                 "editMode": false,
                 "score": 0,
@@ -70,12 +70,12 @@ const newTournament = (state, { winningScore }) => {
     
     return {
         ...state,
-        tournament: [
+        games: [
             ...newPlayers,
         ],
         winningScore: winningScore,
         settingsView: false,
-        tournamentView: true,
+        gamesView: true,
     };
 };
 
@@ -83,7 +83,7 @@ const viewSettings = () => {
     return {
         ...initial,
         settingsView: true,
-        tournamentView: false,
+        gamesView: false,
         resultsView: false,
     };
 };
@@ -92,7 +92,7 @@ const viewTournament = state => {
     return {
         ...state,
         settingsView: false,
-        tournamentView: true,
+        gamesView: true,
         resultsView: false,
     };
 };
@@ -101,18 +101,18 @@ const viewResults = state => {
     return {
         ...state,
         settingsView: false,
-        tournamentView: false,
+        gamesView: false,
         resultsView: true,
     };
 };
 
 const score = (state, { newScore, id }) => {
-    let round = state.tournament;
+    let round = state.games;
     let updatedTournament = newTournamentArray(round, id, +newScore);
 
     return {
         ...state,
-        tournament: [
+        games: [
             ...updatedTournament
         ],
     };
@@ -124,13 +124,13 @@ const history = state => {
         ...state,
         history: [
             ...state.history,
-            state.tournament,
+            state.games,
         ],
     };
 };
 
 const newRound = state => {
-    let round = state.tournament;
+    let round = state.games;
     let filterWinners = winners(round);
     let resetPlayed = filterWinners.map(player => ({
         ...player,
@@ -142,8 +142,8 @@ const newRound = state => {
 
     return {
         ...state,
-        tournament: newRound,
-        round: state.round + 1,
+        games: newRound,
+        roundCounter: state.roundCounter + 1,
     };
 };
 
@@ -152,9 +152,9 @@ const endTournament = state => {
     return {
         ...state,
         settingsView: false,
-        tournamentView: false,
+        gamesView: false,
         resultsView: true,
-        done: true,
+        completed: true,
     };
 };
 

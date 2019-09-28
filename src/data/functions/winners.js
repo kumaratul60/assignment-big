@@ -1,4 +1,4 @@
-export const winners = (tournament) => {
-    let result = tournament.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
+export const winners = (games) => {
+    let result = games.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
     return result;
 };

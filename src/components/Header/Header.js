@@ -25,14 +25,23 @@ class Header extends Component {
     };
 
     render() {
+        let { settingsView, gamesView } = this.props;
+
         return (
             <>
                 <div className="page-header p-3" style={ headerStyle }>
                     <h2 className="m-2 text-center">Ping Pong Bracket Generator</h2>
-                    <ul className="nav justify-content-center">
-                        <li onClick={ this.handleSettings } className="nav-item m-2">New Tournament</li>
-                        <li onClick={ this.handleResults } className="nav-item m-2">Score Board</li>
-                    </ul>
+                    {
+                        settingsView ? null :
+                            <ul className="nav justify-content-center">
+                                <li onClick={ this.handleSettings } className="nav-item m-2">New Tournament</li>
+                                {
+                                    gamesView ? null :
+                                        <li onClick={ this.handleResults } className="nav-item m-2">Score Board</li>
+                                }
+                            </ul>
+                    }
+                    
                 </div>
             </>
         )

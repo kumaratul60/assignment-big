@@ -33,21 +33,21 @@ const validateScore = (newScore, altScore, winningScore, played) => {
 }
 
 // all-in-one validation function to be exported and used in Score component
-export const valid = (tournament, newScore, winningScore, id) => {
-    let gameArray = findGame(tournament, id);
-    let gameIndex = findGameIndex(tournament, id);
+export const valid = (games, newScore, winningScore, id) => {
+    let gameArray = findGame(games, id);
+    let gameIndex = findGameIndex(games, id);
     let playerAltIndex = findPlayerAltIndex(gameArray, id);
-    let playerAltScore = findOpponentScore(tournament, gameIndex, playerAltIndex);
-    let playerAltPlayed = hasOpponentPlayed(tournament, gameIndex, playerAltIndex);
+    let playerAltScore = findOpponentScore(games, gameIndex, playerAltIndex);
+    let playerAltPlayed = hasOpponentPlayed(games, gameIndex, playerAltIndex);
     return validateScore(+newScore, +playerAltScore, winningScore, playerAltPlayed);
 };
 
-// all-in-one function to return a copy of tournament array with new score added
-export const newTournamentArray = (tournament, id, score) => {
-    let gameArray = findGame(tournament, id);
-    let gameIndex = findGameIndex(tournament, id);
+// all-in-one function to return a copy of games array with new score added
+export const newTournamentArray = (games, id, score) => {
+    let gameArray = findGame(games, id);
+    let gameIndex = findGameIndex(games, id);
     let playerIndex = findPlayerIndex(gameArray, id);
-    let copyTournament = [...tournament];
+    let copyTournament = [...games];
     copyTournament[gameIndex][playerIndex].score = score;
     copyTournament[gameIndex][playerIndex].played = true;
     return copyTournament;

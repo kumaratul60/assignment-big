@@ -1,10 +1,20 @@
-# Ping-Pong Tournament Team Generator
+# Ping Pong Tournament Generator
 
 ### A showcase project for DevelopMe Coding Fellowship (Summer 2019)
 
 ## Introduction
 
 This app is a tool which randomly creates pairings for a ping pong tournament bracket from a list of names collected from the user. 
+
+### Technologies 
+
+- JavaScript
+- React
+- Redux
+- JSX
+- HTML/CSS
+- Bootstrap
+- Git (version managed)
 
 ### App Features
 

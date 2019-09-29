@@ -8,6 +8,10 @@ class Round extends Component {
         this.handleFinish = this.handleFinish.bind(this);
     };
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    };
+
     handleNewRound(e) {
         e.preventDefault();
         this.props.history();

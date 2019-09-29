@@ -16,6 +16,10 @@ class Score extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    };
+
     // this method reads the score input field and updates the score for each player 
     handleChange(e) {
         let { winningScore, games, id } = this.props;
@@ -56,19 +60,14 @@ class Score extends Component {
         return (
             <>
                 {
-                    // TODO: in the future I'd like to be able to edit the score after adding it
+                    // TODO: the ability to edit the score after adding it
 
                     // if the player's score has already been entered, the score is displayed here...
-                    played ? <h1>{ score }</h1> :
+                    played ? <><p>Total score</p><h1>{ score }</h1></> :
                         // else we display the input form to the user
                         // if there's an error with the score, the respective methods are called (as detailed above)
                         <form onSubmit={ error ? this.handleError : (e) => this.handleSubmit(e, id) }>
-                            <label
-                                htmlFor="score"
-                                className="d-block"
-                            >
-                                Total Score
-                            </label>
+                            <label htmlFor="score" className="d-block">Add total score</label>
                             {/* if the score fails validation, the input field has a red border */}
                             <input
                                 id="score"

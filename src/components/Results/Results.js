@@ -6,6 +6,10 @@ class Results extends Component {
         this.handleReset = this.handleReset.bind(this);
     };
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    };
+
     handleReset() {
         this.props.reset();
     }

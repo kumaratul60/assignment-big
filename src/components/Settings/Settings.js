@@ -88,7 +88,10 @@ class Settings extends Component {
                                 <button type="submit" className="btn btn-primary mt-3">Add</button>
                                 { validName || !name ? null : <p className="alert alert-danger mt-3">Please enter a valid name</p> }
                                 { validPlayers || players.length === 0 ? null : <p className="alert alert-warning mt-3">The number of players must be a power of 2 e.g. 2, 4, 8, 16, 32...</p> }
+                                <p className="pt-4">The winner of the game is the first to reach the winning score (set below). To win, there must be a gap of at least 2 points between opponents.</p>
                             </form>
+
+                            
 
                             <form onSubmit={ validPlayers ? this.handleSubmitPlayers : this.handlePlayersError } className="form mt-3 p-0">
                                 <label htmlFor="winningScore" className="help-block">Select winning score</label>

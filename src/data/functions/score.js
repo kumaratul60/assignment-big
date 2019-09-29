@@ -15,8 +15,8 @@ const validateScore = (newScore, altScore, winningScore, played) => {
     let check1 = Math.abs(newScore - altScore) >= 2;
     let check2 = ((newScore >= winningScore) || (altScore >= winningScore));
     let check3 = newScore >= 0;
-    let check4 = newScore > altScore && altScore >= winningScore ? !(newScore > altScore && Math.abs(newScore - altScore) > 2) : true;
-    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore && Math.abs(newScore - altScore) > 2) : true;
+    let check4 = newScore > altScore && altScore >= winningScore ? !(Math.abs(newScore - altScore) > 2) : true;
+    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore) : true;
     let check6 = altScore > winningScore ? Math.abs(newScore - altScore) === 2 : true;
     let check7 = !(newScore === 0 && altScore === 0);
 
@@ -35,7 +35,7 @@ export const valid = (games, newScore, winningScore, id) => {
 };
 
 // all-in-one function to return a copy of games array with new score added
-export const newGames = (games, id, score) => {
+export const addScoreUpdateGames = (games, id, score) => {
     let gameArray = findGame(games, id);
     let gameIndex = findGameIndex(games, id);
     let playerIndex = findPlayerIndex(gameArray, id);

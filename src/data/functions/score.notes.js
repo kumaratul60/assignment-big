@@ -1,4 +1,4 @@
-// Score Logic
+// Logic of score functions
 // This document shows my testing process for adding scores to state and score validation
 
 // Sample games array 
@@ -50,20 +50,23 @@ const findOpponentScore = (array, gameIndex, playerAltIndex) => array[gameIndex]
 let playerAltScore = findOpponentScore(copyGames, gameIndex, playerAltIndex);
 
 // score validation algorithm 
-const validateScore = (newScore, altScore, winningScore) => {
-    return (
-        // difference between scores is at least 2
-        Math.abs(newScore - altScore) >= 2 
-        &&
-        // at least one of the players has a winning score
-        ((newScore >= winningScore) || (altScore >= winningScore))
-        &&
-        // new score must be greater than or equal to 0
-        newScore >= 0
-        &&
-        // new score cannot be empty
-        newScore !== ""
-    )
+const validateScore = (newScore, altScore, winningScore, played) => {
+    // difference between scores is at least 2
+    let check1 = Math.abs(newScore - altScore) >= 2;
+    // at least one of the players has a winning score
+    let check2 = ((newScore >= winningScore) || (altScore >= winningScore));
+    // new score must be greater than or equal to 0
+    let check3 = newScore >= 0;
+    // if new score is greater than opponent score, and opponent score is greater or equal to winning score, then the new score must be 2 points more in order to win
+    let check4 = newScore > altScore && altScore >= winningScore ? !(Math.abs(newScore - altScore) > 2) : true;
+    // if new score is greater than opponent score, and opponent score is less than winning score, then the new score cannot exceed the winning score
+    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore) : true;
+    // if opponent score is greater than winning score, then new score must be 2 points more or less than opponent score
+    let check6 = altScore > winningScore ? Math.abs(newScore - altScore) === 2 : true;
+    // new score and opponent score cannot both be zero
+    let check7 = !(newScore === 0 && altScore === 0);
+
+    return played ? (check1 && check2 && check3 && check4 && check5 && check6 && check7) : (check3);
 }
 
 // all-in-one validation function to be exported and used in Score component
@@ -76,7 +79,7 @@ const valid = (games, newScore, winningScore, id) => {
 };
 
 // all-in-one function to return a copy of games array with new score added
-const newGames = (games, id, score) => {
+const addScoreUpdateGames = (games, id, score) => {
     let gameArray = findGame(games, id);
     let gameIndex = findGameIndex(games, id);
     let playerIndex = findPlayerIndex(gameArray, id);

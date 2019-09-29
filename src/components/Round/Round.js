@@ -41,7 +41,7 @@ class Round extends Component {
 
                 }
 
-                <p className="text-center p-3">This app works by letting you add the total score for each player. You’ll need to keep track of scores game-by-game, not point-by-point.</p>
+                <p className="text-center p-3">Add the total score for a player. Save the score with the orange button. Repeat for each player.</p>
 
                 <div className="round-games" style={ games.length === 1 ? { display: "inherit" } : null }>
                     {

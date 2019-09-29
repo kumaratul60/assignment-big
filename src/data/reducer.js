@@ -1,6 +1,6 @@
 import { shuffle } from "./functions/shuffle";
 import { split } from "./functions/split";
-import { newGames } from "./functions/score";
+import { addScoreUpdateGames } from "./functions/score";
 import { winners } from "./functions/winners";
 import initial from "./initial";
 
@@ -112,7 +112,7 @@ const viewResults = state => {
 
 const score = (state, { newScore, id }) => {
     let round = state.games;
-    let updatedGames = newGames(round, id, +newScore);
+    let updatedGames = addScoreUpdateGames(round, id, +newScore);
     let completeCheck = updatedGames.flatMap(game => game.map((player => player.played))).some(el => !el);
     
     if (completeCheck) {

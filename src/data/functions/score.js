@@ -20,7 +20,7 @@ const validateScore = (newScore, altScore, winningScore, played) => {
     let check6 = altScore > winningScore ? Math.abs(newScore - altScore) === 2 : true;
     let check7 = !(newScore === 0 && altScore === 0);
 
-    return played ? !(check1 && check2 && check3 && check4 && check5 && check6 && check7) : !(check3);
+    return played ? (check1 && check2 && check3 && check4 && check5 && check6 && check7) : (check3);
 }
 
 // all-in-one validation function to be exported and used in Score component
@@ -31,7 +31,7 @@ export const valid = (games, newScore, winningScore, id) => {
     let playerAltScore = findOpponentScore(games, gameIndex, playerAltIndex);
     let playerAltPlayed = hasOpponentPlayed(games, gameIndex, playerAltIndex);
 
-    return validateScore(+newScore, +playerAltScore, winningScore, playerAltPlayed);
+    return validateScore(newScore, playerAltScore, winningScore, playerAltPlayed);
 };
 
 // all-in-one function to return a copy of games array with new score added

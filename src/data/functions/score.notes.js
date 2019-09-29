@@ -127,4 +127,4 @@ console.log(`Validate scores 21, 20: expected output: false, actual output: `, v
 console.log(`Validate scores 21, "": expected output: true, actual output: `, validateScore(21, "", winningScore));
 
 // Test all-in-one validiate function 
-console.log(`Alt score (${playerAltScore}), New score (21), Is valid?`, valid(copyGames, -4, winningScore, id));
+console.log(`Alt score (${playerAltScore}), New score (...), Is valid?`, valid(copyGames, 21, winningScore, id));

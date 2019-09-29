@@ -22,18 +22,10 @@ class Score extends Component {
 
     // this method reads the score input field and updates the score for each player 
     handleChange(e) {
-        let { winningScore, games, id } = this.props;
         let score = e.currentTarget.value;
-
+        
         this.setState({
             newScore: score,
-            // error validation is performed on the score as it's entered by the user 
-            // the score of one player is compared to the entered score of the opponent
-            // all standard ping-pong scoring logic applies e.g. player must win by at least 2 points, 
-            // winning score increments 2 points above winning score, one player must win etc. 
-            // this function funs a series of checks to validate the input 
-            // function details and all validation checks are here: "./../../data/functions/score.notes.js"
-            error: valid(games, +score, winningScore, id),
         });
     };
 
@@ -41,8 +33,7 @@ class Score extends Component {
     // the ternary check inside the onSubmit event handler will call this method
     handleError(e) {
         e.preventDefault();
-        this.setState({ error: true, newScore: "" });
-        setTimeout(() => this.setState({ error: false }), 1000);
+        this.setState({ newScore: "" });
     };
 
     // if the onChange validation succeeds, this method is called when the user clicks the Add button
@@ -55,8 +46,15 @@ class Score extends Component {
     };
 
     render() {
-        let { newScore, error } = this.state;
-        let { id, score, played } = this.props;
+        let { newScore } = this.state;
+        let { id, score, played, winningScore, games } = this.props;
+        // error validation is performed on the score as it's entered by the user 
+        // the score of one player is compared to the entered score of the opponent
+        // all standard ping-pong scoring logic applies e.g. player must win by at least 2 points, 
+        // winning score increments 2 points above winning score, one player must win etc. 
+        // this function funs a series of checks to validate the input 
+        // function details and all validation checks are here: "./../../data/functions/score.notes.js"
+        let validScore = valid(games, newScore, winningScore, id);
         return (
             <>
                 {
@@ -66,14 +64,14 @@ class Score extends Component {
                     played ? <><p>Total score</p><h1>{ score }</h1></> :
                         // else we display the input form to the user
                         // if there's an error with the score, the respective methods are called (as detailed above)
-                        <form onSubmit={ error ? this.handleError : (e) => this.handleSubmit(e, id) }>
+                        <form onSubmit={ validScore ? (e) => this.handleSubmit(e, id) : this.handleError }>
                             <label htmlFor="score" className="d-block">Add total score</label>
                             {/* if the score fails validation, the input field has a red border */}
                             <input
                                 id="score"
                                 onChange={ this.handleChange }
                                 type="number"
-                                className={ `form-control col-sm-4 d-inline-block ${error ? "border border-danger" : ""}` }
+                                className={ `form-control col-sm-4 d-inline-block ${validScore || !newScore ? "" : "border border-danger"}` }
                                 value={ newScore }
                                 required
                             />

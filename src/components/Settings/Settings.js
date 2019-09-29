@@ -20,8 +20,6 @@ class Settings extends Component {
             id: "",
             name: "",
             winningScore: 11,
-            errorName: false,
-            errorPlayers: false,
         };
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleNameError = this.handleNameError.bind(this);
@@ -40,10 +38,8 @@ class Settings extends Component {
     handleNameError(e) {
         e.preventDefault();
         this.setState({
-            errorName: true,
             name: "",
         });
-        setTimeout(() => this.setState({ errorName: false }), 4000);
     };
 
     // this adds the player name to the players array in state 
@@ -62,20 +58,20 @@ class Settings extends Component {
     // TODO: it would be good if the app supported any number of players but this would have been a ton more functionality and there just wasn't time - a good idea for the 'features list'
     handlePlayersError(e) {
         e.preventDefault();
-        this.setState({ errorPlayers: true });
-        setTimeout(() => this.setState({ errorPlayers: false }), 4000);
     };
 
     // this method calls the dispatch action and creates the first round of the new tournament
     handleSubmitPlayers(e) {
         e.preventDefault();
         this.props.handlePlayers(this.state);
-        this.setState({ errorPlayers: false });
     };
     
     render() {
-        let { name, winningScore, errorPlayers, errorName } = this.state;
+        let { name, winningScore } = this.state;
         let { players } = this.props;
+
+        let validName = isName(name.trim());
+        let validPlayers = isPowerOf2(players.length)
 
         return (
             <>
@@ -84,24 +80,23 @@ class Settings extends Component {
                     <h5 className="text-center mb-3">Please add the names of all your players</h5>
                     <div className="container-settings">
                         <div>
-                            <form onSubmit={ isName(name.trim()) ? this.handleSubmitName : this.handleNameError } className="clearfix">
+                            <form onSubmit={ validName ? this.handleSubmitName : this.handleNameError } className="clearfix">
                                 <div>
                                     <label htmlFor="names" className="help-block">Add Player</label>
                                     <input onChange={ this.handleChangeName } id="names" className="form-control" value={ name } />
                                 </div>
                                 <button type="submit" className="btn btn-primary mt-3">Add</button>
-                                { !errorName ? null : <p className="alert alert-danger mt-3">Please enter a valid name</p> }
+                                { validName || !name ? null : <p className="alert alert-danger mt-3">Please enter a valid name</p> }
+                                { validPlayers || players.length === 0 ? null : <p className="alert alert-warning mt-3">The number of players must be a power of 2 e.g. 2, 4, 8, 16, 32...</p> }
                             </form>
 
-                            <form onSubmit={ isPowerOf2(players.length) ? this.handleSubmitPlayers : this.handlePlayersError } className="form mt-3 p-0">
+                            <form onSubmit={ validPlayers ? this.handleSubmitPlayers : this.handlePlayersError } className="form mt-3 p-0">
                                 <label htmlFor="winningScore" className="help-block">Select winning score</label>
                                 <select onChange={ this.handleWinningScore } className="custom-select" value={ winningScore } id="winningScore">
                                     <option value="11">11</option>
                                     <option value="21">21</option>
                                 </select>
-
                                 <input type="submit" className="btn btn-success mt-3" value="Start" />
-                                { !errorPlayers ? null : <p className="alert alert-danger mt-3">The number of players must be a power of 2 e.g. 2, 4, 8, 16, 32...</p> }
                             </form>
                         </div>
                         

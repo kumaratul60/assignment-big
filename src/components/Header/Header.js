@@ -36,7 +36,7 @@ class Header extends Component {
         return (
             <>
                 <div className="page-header p-3" style={ headerStyle }> 
-                    <h2 className="m-2 text-center">Ping Pong Bracket Generator</h2>
+                    <h2 className="m-2 text-center">Ping Pong Tournament Generator</h2>
                     {
                         settingsView ? null :
                             <ul className="nav justify-content-center">

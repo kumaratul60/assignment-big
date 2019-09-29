@@ -82,6 +82,11 @@ $ npm start
 
 Open the live app in your browser with this link: https://elev8now.github.io/Ping-Pong-React-App/
 
+## Wireframes
+
+I used Balsamiq to generate these wireframes as a starting point for my development. 
+
+![wireframes](./src/images/wireframes.png)
 
 ## App previews
 

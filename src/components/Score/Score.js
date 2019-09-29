@@ -67,7 +67,7 @@ class Score extends Component {
                                 htmlFor="score"
                                 className="d-block"
                             >
-                                Add Score
+                                Total Score
                             </label>
                             {/* if the score fails validation, the input field has a red border */}
                             <input

@@ -34,7 +34,10 @@ class Round extends Component {
                     // if the games arary length is 4, there are 8 players, which means it's the quarterfinals round
                     // if the games array is any other length, then the round does not have a special name, so we output roundCounter
                     <h2 className="round-title">{ games.length === 1 ? "Final" : games.length === 2 ? "Semifinals" : games.length === 4 ? "Quarterfinals" : `Round ${roundCounter}` }</h2>
+
                 }
+
+                <p className="text-center p-3">This app works by letting you add the total score for each player. You’ll need to keep track of scores game-by-game, not point-by-point.</p>
 
                 <div className="round-games" style={ games.length === 1 ? { display: "inherit" } : null }>
                     {

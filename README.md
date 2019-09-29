@@ -2,6 +2,8 @@
 
 ### A showcase project for DevelopMe Coding Fellowship (Summer 2019)
 
+![app preview](./src/images/ping-pong-app.png)
+
 ## Introduction
 
 This app is a tool which randomly creates pairings for a ping pong tournament bracket from a list of names collected from the user. 
@@ -162,3 +164,9 @@ const split = players => {
 ### Scoring
 
 The scoring functionality is too complex to display here. To understand it, find and open [score.notes.js](./src/data/functions/score.notes.js) which explains everything. 
+
+## Performance
+
+The results of Chrome Dev Tools Lighthouse Audit 
+
+![lighthouse audit](./src/images/app-lighthouse-audit.png)

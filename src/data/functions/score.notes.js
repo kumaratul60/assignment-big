@@ -59,8 +59,8 @@ const validateScore = (newScore, altScore, winningScore, played) => {
     let check3 = newScore >= 0;
     // if new score is greater than opponent score, and opponent score is greater or equal to winning score, then the new score must be 2 points more in order to win
     let check4 = newScore > altScore && altScore >= winningScore ? !(Math.abs(newScore - altScore) > 2) : true;
-    // if new score is greater than opponent score, and opponent score is less than winning score, then the new score cannot exceed the winning score
-    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore) : true;
+    // if new score is greater than opponent score, and opponent score is less than winning score, the new score must be at least winning score, and if above winning score, diff equal to 2
+    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore && Math.abs(newScore - altScore) > 2) : true;
     // if opponent score is greater than winning score, then new score must be 2 points more or less than opponent score
     let check6 = altScore > winningScore ? Math.abs(newScore - altScore) === 2 : true;
     // new score and opponent score cannot both be zero

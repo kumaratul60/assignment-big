@@ -16,7 +16,7 @@ const validateScore = (newScore, altScore, winningScore, played) => {
     let check2 = ((newScore >= winningScore) || (altScore >= winningScore));
     let check3 = newScore >= 0;
     let check4 = newScore > altScore && altScore >= winningScore ? !(Math.abs(newScore - altScore) > 2) : true;
-    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore) : true;
+    let check5 = newScore > altScore && altScore < winningScore ? !(newScore > winningScore && Math.abs(newScore - altScore) > 2) : true;
     let check6 = altScore > winningScore ? Math.abs(newScore - altScore) === 2 : true;
     let check7 = !(newScore === 0 && altScore === 0);
 

@@ -1,172 +1,71 @@
-# Table-Tannis Tournament Generator
 
-### A showcase project for DevelopMe Coding Fellowship (Summer 2019)
+# Getting Started with Create React App       
+ 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![app preview](./src/images/ping-pong-app.png)
+## Available Scripts
 
-## Introduction
+In the project directory, you can run:
 
-This app is a tool which randomly creates pairings for a Table-Tannis tournament bracket from a list of names collected from the user. 
+### `yarn start`
 
-### Technologies 
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-- JavaScript
-- React
-- Redux
-- JSX
-- HTML/CSS
-- Bootstrap
-- Git (version managed)
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### App Features
+### `yarn test`
 
-- Edit / delete players 
-- Validate player names
-- Validate number of players  
-- Choose your winning score (11 or 21)
-- Play multiple rounds
-- Generate random pairings 
-- Save player scores
-- Score comparison / validation 
-- Intelligent round names e.g. semifinals
-- Validate all scores to unlock next round
-- Identify winners and generate next round of playoffs
-- Scoreboard to view tournament results
-- Print scoreboard option
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Setup on your machine 
+### `yarn build`
 
-### Prerequisites 
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- Latest version of NPM installed on your machine (check your version with `npm -v`)
-- Command Line (recommend Terminal or [iTerm](https://www.iterm2.com/) on macOS, or your preferred app)
-- Code editor (recommend [VS Code](https://code.visualstudio.com/))
-  
-### Follow these steps
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-1. Open your terminal app, and navigate into the directory on your local machine where you want to store the app files
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-```shell 
-$ cd ~/path/to/directory/
-```
+### `yarn eject`
 
-2. Open the GitHub repository link in your web browser and copy the SSH key
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-![SSH key](./src/images/clonerepo.png)
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-3. Run the following command in your terminal (remember to update the `app-name`): 
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-```shell
-$ git clone git@github.com:elev8now/Ping-Pong-React-App.git app-name
-```
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-4. Navigate into your new app directory 
+## Learn More
 
-```shell
-$ cd app-name
-```
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-5. Install the app dependencies 
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-```shell
-$ npm install 
-```
+### Code Splitting
 
-6. Initiate the app 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-```shell 
-$ npm start 
-```
+### Analyzing the Bundle Size
 
-7. The app will launch in your default browser at http://localhost:3000/
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-## View the app online 
+### Making a Progressive Web App
 
-Open the live app in your browser with this link: https://elev8now.github.io/Ping-Pong-React-App/
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-## Wireframes
+### Advanced Configuration
 
-I used Balsamiq to generate these wireframes as a starting point for my development. 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-![wireframes](./src/images/wireframes.png)
+### Deployment
 
-## App previews
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### Add players
+### `yarn build` fails to minify
 
-![](./src/images/players1.png)
-
-### Play and score
-
-![](./src/images/mobilegame.png)
-
-### Validate input data
-
-![](./src/images/validation.png)
-
-### View scoreboard
-
-![](./src/images/results.png)
-
-
-## Key functionality 
-
-### Winners
-
-The purpose of this function is to get back all the winners from an array that stores multiple games with 2 players in each and their respective scores. The next step is to shuffle and split the flat array to create a new round of games. 
-
-```js
-const winners = (games) => {
-    let result = games.map(game => game.reduce((winner, player) => player.score > winner.score ? player : winner));
-    return result;
-};
-``` 
-
-### Shuffle 
-The purpose of this function to shuffle an array. The application of this functon is to take an array of player objects and shuffle them into a random order. This function is based on the Fisher-Yates shuffle algorithm.
-
-```js
-const shuffle = array => {
-
-    let index = array.length;
-    let temp, random;
-
-    while (index !== 0) {
-        random = Math.floor(Math.random() * index);
-        index -= 1;
-
-        temp = array[index];
-        array[index] = array[random];
-        array[random] = temp;
-    };
-
-    return array;
-};
-```
-
-### Split 
-
-The purpose of this function to split an array into chunks. The application of this functon is to split an array of player objects into multiple games.
-
-```js
-const split = players => {
-    let result = [];
-    let teams = Math.floor(players.length / (players.length / 2));
-
-    while (players.length) {
-        result.push(players.splice(0, teams));
-    }
-
-    return result;
-};
-```
-
-### Scoring
-
-The scoring functionality is too complex to display here. To understand it, find and open [score.notes.js](./src/data/functions/score.notes.js) which explains everything. 
-
-## Performance
-
-The results of Chrome Dev Tools Lighthouse Audit 
-
-![lighthouse audit](./src/images/app-lighthouse-audit.png)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

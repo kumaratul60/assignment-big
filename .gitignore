@@ -24,3 +24,5 @@ yarn-error.log*
 
 # styles
 /src/scss
+
+#not build

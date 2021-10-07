@@ -1,4 +1,4 @@
-# Ping Pong Tournament Generator
+# Table-Tannis Tournament Generator
 
 ### A showcase project for DevelopMe Coding Fellowship (Summer 2019)
 
@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This app is a tool which randomly creates pairings for a ping pong tournament bracket from a list of names collected from the user. 
+This app is a tool which randomly creates pairings for a Table-Tannis tournament bracket from a list of names collected from the user. 
 
 ### Technologies 
 
